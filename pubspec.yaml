@@ -1,0 +1,51 @@
+name: learning_master
+description: A new Flutter project.
+
+
+publish_to: 'none' 
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=2.18.2 <3.0.0'
+
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.2
+  fluro: ^2.0.3
+  flutter_svg: ^1.1.5
+  image: ^3.2.0
+
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^2.0.0
+
+flutter:
+
+  uses-material-design: true
+
+  assets:
+    - svg/硬盘.svg
+    - svg/github.svg
+
+  fonts:
+    - family: MiSans
+      fonts:
+        - asset: fonts/MiSans-Bold.ttf
+        - asset: fonts/MiSans-Demibold.ttf
+        - asset: fonts/MiSans-ExtraLight.ttf
+        - asset: fonts/MiSans-Heavy.ttf
+        - asset: fonts/MiSans-Light.ttf
+        - asset: fonts/MiSans-Medium.ttf
+        - asset: fonts/MiSans-Normal.ttf
+        - asset: fonts/MiSans-Regular.ttf
+        - asset: fonts/MiSans-Semibold.ttf
+        - asset: fonts/MiSans-Thin.ttf
+
+
