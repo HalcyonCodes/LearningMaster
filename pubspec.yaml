@@ -33,6 +33,8 @@ flutter:
   assets:
     - svg/硬盘.svg
     - svg/github.svg
+    - svg/搜索.svg
+    - svg/tag.svg
 
   fonts:
     - family: MiSans

@@ -5,6 +5,6 @@ class KColor{
   static Color backgroundColor = const Color.fromRGBO(255, 231, 208, 1.0);
   static Color navColor = const Color.fromRGBO(50, 50, 50, 1.0);
   static Color containerColor = const Color.fromRGBO(255, 255, 255, 1.0);
-  static Color greyTextColor = Colors.black.withOpacity(0.3);
+  static Color greyTextColor = Colors.black.withOpacity(0.4);
   
 }
