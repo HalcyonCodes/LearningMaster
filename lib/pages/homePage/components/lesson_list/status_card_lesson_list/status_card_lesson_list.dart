@@ -20,6 +20,7 @@ class StatusCard extends StatelessWidget {
         color: KColor.containerColor,
       ),
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(status,style: KFont.loadStatusStyle,)
         ],

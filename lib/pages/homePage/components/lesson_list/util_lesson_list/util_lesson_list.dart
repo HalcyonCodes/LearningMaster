@@ -139,6 +139,13 @@ class LessonListUtil{
     _scrollController = ctrl;
   }
 
+  //获取加载指示器的高度
+  double Function()? _getLoadWidgetHeight;
+  double Function()? get getLoadWidgetHeight => _getLoadWidgetHeight;
+  void setFuncGetLoadWidgetHeight(double Function()? func){
+    _getLoadWidgetHeight = func;
+  }
+  
 }
 
 

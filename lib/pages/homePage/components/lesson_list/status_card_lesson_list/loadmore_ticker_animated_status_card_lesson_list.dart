@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import '../util_lesson_list/util_lesson_list.dart';
-import './animated_status_card_lesson_list.dart';
+import 'loadmore_animated_status_card_lesson_list.dart';
 
 
 //封装加载更多的指示器动画
@@ -29,7 +29,7 @@ class _LoadMoreStatusAnimatedTickerState extends State<LoadMoreStatusAnimatedTic
 
   @override
   Widget build(BuildContext context) {
-    return AnimatedStatusCard(
+    return LoadMoreAnimatedStatusCard(
       animationController: animationController, 
       animation: Tween<double>(begin: 0.0, end:  1.0).animate(
         CurvedAnimation(

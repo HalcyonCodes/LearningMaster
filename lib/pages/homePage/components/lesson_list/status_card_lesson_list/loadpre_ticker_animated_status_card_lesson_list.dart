@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import './animated_status_card_lesson_list.dart';
+import './loadpre_animated_status_card_lesson_list copy.dart';
 import '../util_lesson_list/util_lesson_list.dart';
 
 
@@ -28,9 +28,10 @@ class _LoadPreStatusAnimatedTickerState extends State<LoadPreStatusAnimatedTicke
 
   @override
   Widget build(BuildContext context) {
-    return AnimatedStatusCard(
+
+    return LoadPreAnimatedStatusCard(
       animationController: animationController, 
-      animation: Tween<double>(begin: 2.0, end:  1.0).animate(
+      animation: Tween<double>(begin: 0, end:  1.0).animate(
         CurvedAnimation(
           parent: animationController,
           curve: const Interval((1 / 3) * 0, 1.0,

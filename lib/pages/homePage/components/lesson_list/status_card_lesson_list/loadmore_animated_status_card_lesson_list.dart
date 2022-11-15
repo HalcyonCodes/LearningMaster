@@ -2,19 +2,19 @@
 import 'package:flutter/material.dart';
 import './status_card_lesson_list.dart';
 
-class AnimatedStatusCard extends StatefulWidget {
+class LoadMoreAnimatedStatusCard extends StatefulWidget {
   final String statusString;
   final AnimationController animationController;
   final Animation<double> animation; 
-  const AnimatedStatusCard({super.key, required this.animationController, required this.animation, required this.statusString});
+  const LoadMoreAnimatedStatusCard({super.key, required this.animationController, required this.animation, required this.statusString});
 
 
   @override
-  State<AnimatedStatusCard> createState() => _AnimatedStatusCardState();
+  State<LoadMoreAnimatedStatusCard> createState() => _LoadMoreAnimatedStatusCardState();
 
 }
 
-class _AnimatedStatusCardState extends State<AnimatedStatusCard> {
+class _LoadMoreAnimatedStatusCardState extends State<LoadMoreAnimatedStatusCard> {
 
    @override
   void initState() {
