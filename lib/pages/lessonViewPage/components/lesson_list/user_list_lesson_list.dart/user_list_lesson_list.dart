@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:learning_master/pages/homePage/components/lesson_list/card_lesson_list/card_lesson_list.dart';
+import 'package:learning_master/pages/lessonViewPage/components/lesson_list/card_lesson_list/card_lesson_list.dart';
+import 'package:learning_master/pages/lessonViewPage/components/lesson_list/double_bladed_axe.dart';
 import '../util_lesson_list/util_lesson_list.dart';
 import '../function_list_lesson_list.dart/function_list_lesson_list.dart';
 
@@ -7,22 +8,28 @@ import '../function_list_lesson_list.dart/function_list_lesson_list.dart';
 class UserList extends StatefulWidget {
   final LessonListUtil lessonListUtil;
   final double height;
-  final int initPage;
-  final int pageMaxContainCount;
+  final String initPage;
+  final String pageMaxContainCount;
+  final String maxPage;
 
-  const UserList(
-      {super.key,
-      required this.lessonListUtil,
-      required this.height,
-      required this.initPage,
-      required this.pageMaxContainCount,
-      });
+  const UserList({
+    super.key,
+    required this.lessonListUtil,
+    required this.height,
+    required this.initPage,
+    required this.pageMaxContainCount,
+    required this.maxPage,
+  });
 
   @override
   State<UserList> createState() => _UserListState();
 }
 
 class _UserListState extends State<UserList> {
+  late int initPage;
+  late int pageMaxContainCount;
+  late int maxPage;
+
   List<Widget> initWidgets = [];
 
   int testCount = 0;
@@ -30,21 +37,27 @@ class _UserListState extends State<UserList> {
   @override
   void initState() {
     super.initState();
+    //注册方法
     widget.lessonListUtil.setFuncGetLoadMoreWidgets(loadMore);
     widget.lessonListUtil.setFuncGetLoadPreWidgets(loadPre);
     widget.lessonListUtil.setScreenHeight(widget.height);
+    //初始化
+    initPage = int.tryParse(widget.initPage)!;
+    pageMaxContainCount = int.tryParse(widget.pageMaxContainCount)!;
+    maxPage = int.tryParse(widget.maxPage)!;
+
     initItem();
-    testCount = 0;
   }
 
   @override
   Widget build(BuildContext context) {
     widget.lessonListUtil.setScreenHeight(widget.height);
-    return FunctionList(
+    return DoubleBladedAxe(
+      initWidgets: initWidgets,
       initPage: widget.initPage,
+      maxPage: widget.maxPage,
+      pageMaxContainCount: widget.pageMaxContainCount,
       lessonListUtil: widget.lessonListUtil,
-      initListItems: initWidgets,
-      pagMaxContainCount: widget.pageMaxContainCount,
     );
   }
 

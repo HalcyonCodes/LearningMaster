@@ -6,14 +6,21 @@ import '../switch_list_lesson_list/switch_list_lesson_list.dart';
 class FunctionList extends StatefulWidget {
   final List<Widget> initListItems;
   final LessonListUtil lessonListUtil;
-  final int initPage; //page是从第几页开始的
-  final int pagMaxContainCount; //页面的最大容量，过多时会删除头部或者尾部的item
+  final String initPage; //page是从第几页开始的
+  final String pageMaxContainCount; //页面的最大容量，过多时会删除头部或者尾部的item
+  final String maxPage;
+  final Widget loadMoreStatusWidget;
+  final Widget loadPreStatusWidget;
   const FunctionList(
       {super.key,
       required this.initListItems,
       required this.lessonListUtil,
       required this.initPage,
-      required this.pagMaxContainCount});
+      required this.maxPage,
+      required this.pageMaxContainCount,
+      required this.loadMoreStatusWidget,
+      required this.loadPreStatusWidget,
+      });
 
   @override
   State<FunctionList> createState() => _FunctionListState();
@@ -27,6 +34,7 @@ class _FunctionListState extends State<FunctionList> {
   int maxPageCount = 1; //page容器的最大容量，超过这个容量则裁剪card
   int pageCount = 0; //当前页面数量
   int currentPage = 0; //当前页面
+  int maxPage = 0; //最大页面
 
   @override
   void initState() {
@@ -46,20 +54,30 @@ class _FunctionListState extends State<FunctionList> {
         .setFuncMaintainScrollCtrlInLoadMoreInFunctionList(maintainScrollCtrl);
     widget.lessonListUtil.setFuncSelectPageInFunctionList(selectPage);
     widget.lessonListUtil.setFuncGetCurrentPageInFunctionList(getCurrentPage);
+    widget.lessonListUtil.setFuncSetIsLockLoadPre(selectIsLoadPre);
+    widget.lessonListUtil.setFuncSetIsLockLoadMore(selectIsLoadMore);
     //初始化
-    pageStartIndex = widget.initPage;
+    pageStartIndex = int.tryParse(widget.initPage)!;
     pageEndIndex = pageStartIndex;
-    maxPageCount = widget.pagMaxContainCount;
-    currentPage = widget.initPage;
+    maxPageCount = int.tryParse(widget.pageMaxContainCount)!;
+    currentPage = int.tryParse(widget.initPage)!;
+    maxPage = int.tryParse(widget.maxPage)!;
     //初始化页面高度标志
     initPageSing();
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      initIsLockedLoad();
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return SwitchList(
         lessonListUtil: widget.lessonListUtil,
-        initListItems: widget.initListItems);
+        initListItems: widget.initListItems,
+        loadMoreStatusWidget: widget.loadMoreStatusWidget,
+        loadPreStatusWidget: widget.loadPreStatusWidget,
+        
+        );
   }
 
   //初始化标记栈
@@ -87,7 +105,6 @@ class _FunctionListState extends State<FunctionList> {
                 pageSignStart[i - 1]! +
                 pageSignStart[i - 2]!;
           }
-
           //计算出差距后需要把之前的高度加入
         } else {
           temp[i] = pageSignStart[i - 2]! + pageTemp;
@@ -109,7 +126,7 @@ class _FunctionListState extends State<FunctionList> {
 
   //将pageTemp中的高度压入标记头部
   void insertHeightPage() {
-    if (pageStartIndex <= 0) {
+    if (pageStartIndex <= 1) {
     } else {
       if (pageCount == maxPageCount - 1) {
         //pageSignStart[pageStartIndex - 1] = 0;
@@ -209,12 +226,35 @@ class _FunctionListState extends State<FunctionList> {
           currentPage = i;
         }
       } else {
-        //currentPage = pageEndIndex;
         if (currentPosition >= pageSignStart[i]!) {
           currentPage = i;
         }
       }
     }
     //print('page:$currentPage');
+  }
+
+  //计算是否锁定加载上一个
+  void selectIsLoadPre() {
+    if (pageStartIndex <= 1) {
+      widget.lessonListUtil.setIsLockedLoadPre!(true);
+    } else {
+      widget.lessonListUtil.setIsLockedLoadPre!(false);
+    }
+  }
+
+  //计算是否锁定加载下一个
+  void selectIsLoadMore() {
+    if (pageEndIndex >= maxPage) {
+      widget.lessonListUtil.setIsLockedLoadMore!(true);
+    } else {
+      widget.lessonListUtil.setIsLockedLoadMore!(false);
+    }
+  }
+
+  //初始化是否锁定加载
+  void initIsLockedLoad() {
+    selectIsLoadMore();
+    selectIsLoadPre();
   }
 }

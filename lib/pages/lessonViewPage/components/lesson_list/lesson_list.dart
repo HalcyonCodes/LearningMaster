@@ -9,14 +9,14 @@ import './util_lesson_list/util_lesson_list.dart';
 class LessonList extends StatefulWidget {
   final String? searchInitString;
   final String currentPage;
-  final String pages;
+  final String maxPage;
   final double height;
 
   const LessonList(
       {super.key,
       this.searchInitString,
       required this.currentPage,
-      required this.pages,
+      required this.maxPage,
       required this.height});
 
   @override
@@ -26,7 +26,7 @@ class LessonList extends StatefulWidget {
 class _LessonListState extends State<LessonList> {
   late String? searchInitString;
   late String currentPage;
-  late String pages;
+  late String maxPage;
   late ScrollController scrollController;
   late LessonListUtil lessonListUtil;
 
@@ -35,7 +35,7 @@ class _LessonListState extends State<LessonList> {
     super.initState();
     searchInitString = widget.searchInitString;
     currentPage = widget.currentPage;
-    pages = widget.pages;
+    maxPage = widget.maxPage;
     scrollController = ScrollController();
     lessonListUtil = LessonListUtil();
   }
@@ -59,7 +59,7 @@ class _LessonListState extends State<LessonList> {
           ),
           PagePoint(
             currentPage: currentPage,
-            pages: pages,
+            maxPage: maxPage,
             lessonListUtil: lessonListUtil,
           ),
           const SizedBox(
@@ -71,8 +71,9 @@ class _LessonListState extends State<LessonList> {
             child: UserList(
               lessonListUtil: lessonListUtil,
               height: widget.height,
-              initPage: int.tryParse(currentPage)!,
-              pageMaxContainCount: 5,
+              initPage: currentPage,
+              pageMaxContainCount: "2",
+              maxPage: maxPage,
             ),
           )
         ],

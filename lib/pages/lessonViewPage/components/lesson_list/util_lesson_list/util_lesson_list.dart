@@ -102,7 +102,8 @@ class LessonListUtil {
 
   //用于调用http请求并组装组件列表的函数
   Future<List<Widget>> Function()? _getLoadMoreWidgets;
-  Future<List<Widget>> Function()? get getLoadMoreWidgets => _getLoadMoreWidgets;
+  Future<List<Widget>> Function()? get getLoadMoreWidgets =>
+      _getLoadMoreWidgets;
   void setFuncGetLoadMoreWidgets(
       Future<List<Widget>> Function()? getHttpWidgets) {
     _getLoadMoreWidgets = getHttpWidgets;
@@ -249,7 +250,8 @@ class LessonListUtil {
 
   //FunctionList中的当前页面
   int Function()? _getCurrentPageInFunctionList;
-  int Function()? get getCurrentPageInFunctionList => _getCurrentPageInFunctionList;
+  int Function()? get getCurrentPageInFunctionList =>
+      _getCurrentPageInFunctionList;
   void setFuncGetCurrentPageInFunctionList(int Function()? func) {
     _getCurrentPageInFunctionList = func;
   }
@@ -259,5 +261,33 @@ class LessonListUtil {
   void Function()? get selectPageInFunctionList => _selectPageInFunctionList;
   void setFuncSelectPageInFunctionList(void Function()? func) {
     _selectPageInFunctionList = func;
+  }
+
+  //switchList中修改加载上一个的锁
+  void Function(bool)? _setIsLockedLoadPre;
+  void Function(bool)? get setIsLockedLoadPre => _setIsLockedLoadPre;
+  void setFuncSetIsLockedLoadPre(void Function(bool)? func) {
+    _setIsLockedLoadPre = func;
+  }
+
+  //switchList中修改加载下一个的锁
+  void Function(bool)? _setIsLockedLoadMore;
+  void Function(bool)? get setIsLockedLoadMore => _setIsLockedLoadMore;
+  void setFuncSetIsLockedLoadMore(void Function(bool)? func) {
+    _setIsLockedLoadMore = func;
+  }
+
+  //functionList中计算是否锁定加载上一个
+  void Function()? _selectIsLockLoadPre;
+  void Function()? get selectIsLockLoadPre => _selectIsLockLoadPre;
+  void setFuncSetIsLockLoadPre(void Function()? func) {
+    _selectIsLockLoadPre = func;
+  }
+
+  //functionList中计算是否锁定加载更多
+  void Function()? _selectIsLockLoadMore;
+  void Function()? get selectIsLockLoadMore => _selectIsLockLoadMore;
+  void setFuncSetIsLockLoadMore(void Function()? func) {
+    _selectIsLockLoadMore = func;
   }
 }

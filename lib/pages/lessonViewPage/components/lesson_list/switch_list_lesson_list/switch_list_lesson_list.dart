@@ -1,16 +1,15 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:learning_master/pages/homePage/components/lesson_list/lesson_list.dart';
+
 import '../util_lesson_list/util_lesson_list.dart';
 import '../page_temp_lesson_list.dart/page_temp_lesson_list.dart';
-
-import '../status_card_lesson_list/loadmore_ticker_animated_status_card_lesson_list.dart';
-import '../status_card_lesson_list/loadpre_ticker_animated_status_card_lesson_list.dart';
 
 import '../util_lesson_list/status_util_lesson_list.dart';
 
 import '../status_card_lesson_list/load_temp_status_card_lesson_list.dart';
+import '../status_card_lesson_list/user_loadmore_widget.dart';
+import '../status_card_lesson_list/user_loadpre_widget.dart';
 
 //在两个滚动条之间切换滚动条并记录翻页组件
 //主要任务是在Listview和singlechildScrollView之间切换和获取新添加的页面在滚动条的高度信息
@@ -18,8 +17,14 @@ import '../status_card_lesson_list/load_temp_status_card_lesson_list.dart';
 class SwitchList extends StatefulWidget {
   final LessonListUtil lessonListUtil;
   final List<Widget> initListItems;
+  final Widget loadMoreStatusWidget;
+  final Widget loadPreStatusWidget;
   const SwitchList(
-      {super.key, required this.lessonListUtil, required this.initListItems});
+      {super.key,
+      required this.lessonListUtil,
+      required this.initListItems,
+      required this.loadMoreStatusWidget,
+      required this.loadPreStatusWidget});
 
   @override
   State<SwitchList> createState() => _SwitchListState();
@@ -30,6 +35,8 @@ class _SwitchListState<T> extends State<SwitchList> {
   late bool isListView; //切换列表状态指示器
   late bool isLockScroll; //是否锁住列表滚动
   late Widget? singleChildScrollViewItemTemp; //添加用于计算长度的元件
+  late bool isLockedLoadPre; //锁定加载上一个
+  late bool isLockedLoadMore; //锁定加载下一个
 
   List<Widget> listViewItems = []; //用于显示的列表Items
   List<Widget> singleChildScrollViewItems = []; //用于计算的列表Items
@@ -53,10 +60,15 @@ class _SwitchListState<T> extends State<SwitchList> {
     widget.lessonListUtil.setFuncScrollListenerInSwitchList(scrollListener);
     widget.lessonListUtil.setFuncRebuildScrollCtrlLoadMoreAfterInSwitchList(
         rebuildScrollCrtlLoadMoreAfter);
+    widget.lessonListUtil.setFuncSetIsLockedLoadMore(setIsLockedLoadMore);
+    widget.lessonListUtil.setFuncSetIsLockedLoadPre(setIsLockedLoadPre);
 
     //--
     isListView = true;
     isLockScroll = false;
+    isLockedLoadMore = false;
+    isLockedLoadPre = false;
+
     scrollControllerInit();
 
     singleChildScrollViewItemTemp = PageTemp(
@@ -65,6 +77,8 @@ class _SwitchListState<T> extends State<SwitchList> {
     addSingleChildScrollViewItemOnFoot(
         singleChildScrollViewItemTemp!); //添加到SingleChildScrollViewItem列表里，用于切换显示然后计算长度
     addListViewItemOnFoot(singleChildScrollViewItemTemp!); //初始化列表元件
+
+    //--
   }
 
   @override
@@ -165,14 +179,12 @@ class _SwitchListState<T> extends State<SwitchList> {
 
   //在SingleChildScrollView头部添加加载进度指示器
   void addLoadPreStatusCardOnHead() {
-    listViewItems.insert(
-        0, LoadPreStatusAnimatedTicker(lessonListUtil: widget.lessonListUtil));
+    listViewItems.insert(0, widget.loadPreStatusWidget);
   }
 
   //在SingleChildScrollView尾部添加加载进度指示器
   void addLoadMoreStatusCardOnFoot() {
-    listViewItems.add(
-        LoadMoreStatusAnimatedTicker(lessonListUtil: widget.lessonListUtil));
+    listViewItems.add(widget.loadMoreStatusWidget);
   }
 
   //在SingleChildScrollView头部移除加载进度指示器
@@ -188,6 +200,11 @@ class _SwitchListState<T> extends State<SwitchList> {
   //监控滚动条
   void scrollListener() {
     scrollController.addListener(() async {
+      if (widget.lessonListUtil.status == Status.statusIdel) {
+        widget.lessonListUtil.selectIsLockLoadMore!();
+        widget.lessonListUtil.selectIsLockLoadPre!();
+      }
+
       //判断当前进度条位于哪
       if (widget.lessonListUtil.status == Status.statusIdel) {
         widget.lessonListUtil.selectPageInFunctionList!();
@@ -200,8 +217,9 @@ class _SwitchListState<T> extends State<SwitchList> {
           //判断是否可以拖动
           if (widget.lessonListUtil.status == Status.statusIdel) {
             //下拉判断
-            if (scrollController.position.pixels ==
-                scrollController.position.minScrollExtent) {
+            if ((scrollController.position.pixels ==
+                    scrollController.position.minScrollExtent) &&
+                (!isLockedLoadPre)) {
               widgetsTemp = [];
               singleChildScrollViewItemTemp = null;
               widget.lessonListUtil
@@ -221,8 +239,7 @@ class _SwitchListState<T> extends State<SwitchList> {
                     await widget
                         .lessonListUtil.reversetLoadPreStatusCardAniamte!(() {
                       //修改加载指示器
-                      Widget loadCard = LoadPreStatusAnimatedTicker(
-                          lessonListUtil: widget.lessonListUtil);
+                      Widget loadCard = widget.loadPreStatusWidget;
                       Widget loadTemp = LoadTemp(
                           loadWidget: loadCard,
                           lessonListUtil: widget.lessonListUtil);
@@ -263,10 +280,14 @@ class _SwitchListState<T> extends State<SwitchList> {
                             .maintainItemsInLoadPreInFunctionList!();
                         widget.lessonListUtil.insertHeightPageInFunctionList!();
                         //打印调试
-                        widget.lessonListUtil.testSingDisplayInFunctionList!();
+                        //widget.lessonListUtil.testSingDisplayInFunctionList!();
                         //====
                         refreshUi();
                         widget.lessonListUtil.setStatus(Status.statusIdel);
+                        WidgetsBinding.instance
+                            .addPostFrameCallback((timeStamp) {
+                          widget.lessonListUtil.selectPageInFunctionList!();
+                        });
                       });
                     });
                   } catch (e) {
@@ -289,8 +310,9 @@ class _SwitchListState<T> extends State<SwitchList> {
             }
 
             //上拉判断
-            if (scrollController.position.pixels ==
-                scrollController.position.maxScrollExtent) {
+            if ((scrollController.position.pixels ==
+                    scrollController.position.maxScrollExtent) &&
+                (!isLockedLoadMore)) {
               widgetsTemp = [];
               singleChildScrollViewItemTemp = null;
               widget.lessonListUtil
@@ -323,18 +345,15 @@ class _SwitchListState<T> extends State<SwitchList> {
                         //计算页面高度
                         double pageHeight =
                             await widget.lessonListUtil.getSinglePageHeight!();
-                        //widget.lessonListUtil.loadMoreMathPageSign!();
                         addListViewItemOnFoot(singleChildScrollViewItemTemp!);
                         //设置成listview
                         setIsListView(true);
-                        //rebuildScrollCrtlLoadMoreAfter();
                         //删除singleChildScrollView中最后一个元素，添加请求的item；
                         rebuildSingleChildScrollViewItemOnFoot(
                             singleChildScrollViewItemTemp!);
                         //====维护卡片队列====
                         widget.lessonListUtil
                             .getCurrentPageHeightInFunctionList!(pageHeight);
-
                         widget.lessonListUtil
                             .maintainItemsInLoadMoreFunctionList!();
                         widget.lessonListUtil
@@ -342,7 +361,7 @@ class _SwitchListState<T> extends State<SwitchList> {
                         //这里有顺序，需要先计算和维护好item和scrollview后才把位置加入位置标记里
                         widget.lessonListUtil.pushHeightPageInFunctionList!();
                         //打印调试
-                        widget.lessonListUtil.testSingDisplayInFunctionList!();
+                        //widget.lessonListUtil.testSingDisplayInFunctionList!();
                         refreshUi();
                         widget.lessonListUtil.setStatus(Status.statusIdel);
                       });
@@ -420,5 +439,15 @@ class _SwitchListState<T> extends State<SwitchList> {
     double p = currentPixel - pixel;
     scrollController = ScrollController(initialScrollOffset: p);
     widget.lessonListUtil.setScrollController(scrollController);
+  }
+
+  //修改是否锁定加载上一个
+  void setIsLockedLoadPre(bool b) {
+    isLockedLoadPre = b;
+  }
+
+  //修改是否加锁定载下一个
+  void setIsLockedLoadMore(bool b) {
+    isLockedLoadMore = b;
   }
 }
