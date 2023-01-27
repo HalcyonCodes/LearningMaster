@@ -3,11 +3,11 @@ import '../../../../../config/index.dart';
 import '../card_lesson_list/tag_lesson_list.dart';
 
 class LessonCard extends StatefulWidget {
-  final String className;
-  final String lessonId;
-  final String lessonTitle;
-  final String lessonProfile;
-  final List<String> lessonTags;
+  final String? className;
+  final String? lessonId;
+  final String? lessonTitle;
+  final String? lessonProfile;
+  final List<String>? lessonTags;
   final Function? onClick;
 
   const LessonCard({
@@ -41,14 +41,14 @@ class _LessonCardState extends State<LessonCard> {
 
   @override
   Widget build(BuildContext context) {
-    className = widget.className;
-    lessonId = widget.lessonId;
-    lessonTitle = widget.lessonTitle;
-    lessonProfile = widget.lessonProfile;
-    lessonTags = widget.lessonTags;
+    className = widget.className!;
+    lessonId = widget.lessonId!;
+    lessonTitle = widget.lessonTitle!;
+    lessonProfile = widget.lessonProfile!;
+    lessonTags = widget.lessonTags!;
 
-    tags = List.generate(widget.lessonTags.length, (index) {
-      return LessonTag(tagName: widget.lessonTags[index]);
+    tags = List.generate(widget.lessonTags!.length, (index) {
+      return LessonTag(tagName: widget.lessonTags![index]);
     });
 
     return Column(
@@ -108,7 +108,7 @@ class _LessonCardState extends State<LessonCard> {
                     height: 12,
                   ),
                   Text(
-                    widget.lessonTitle,
+                    widget.lessonTitle!,
                     style: KFont.classCardTitleStyle,
                     maxLines: 5,
                     overflow: TextOverflow.fade,
@@ -117,7 +117,7 @@ class _LessonCardState extends State<LessonCard> {
                     height: 12,
                   ),
                   Text(
-                    widget.lessonProfile,
+                    widget.lessonProfile!,
                     style: KFont.greyMsgStyle,
                     maxLines: 5,
                     overflow: TextOverflow.fade,
