@@ -72,7 +72,7 @@ class _LessonListState extends State<LessonList> {
               lessonListUtil: lessonListUtil,
               height: widget.height,
               initPage: int.tryParse(currentPage)!,
-              pageMaxContainCount: 4,
+              pageMaxContainCount: 5,
             ),
           )
         ],

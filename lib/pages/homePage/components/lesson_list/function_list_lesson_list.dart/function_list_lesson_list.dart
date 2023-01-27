@@ -82,7 +82,13 @@ class _FunctionListState extends State<FunctionList> {
       Map<int, double> temp = {};
       for (int i = pageStartIndex; i <= pageEndIndex; i++) {
         if (pageSignStart.containsKey(i)) {
-          temp[i] = pageSignStart[i]! - pageSignStart[i - 1]!;
+          if (pageSignStart[i - 2] != null) {
+            temp[i] = pageSignStart[i]! -
+                pageSignStart[i - 1]! +
+                pageSignStart[i - 2]!;
+          }
+
+          //计算出差距后需要把之前的高度加入
         } else {
           temp[i] = pageSignStart[i - 2]! + pageTemp;
         }
@@ -106,17 +112,26 @@ class _FunctionListState extends State<FunctionList> {
     if (pageStartIndex <= 0) {
     } else {
       if (pageCount == maxPageCount - 1) {
+        //pageSignStart[pageStartIndex - 1] = 0;
+        Map<int, double> temp = {};
+        temp[pageStartIndex - 1] = 0;
         pageSignStart[pageStartIndex - 1] = 0;
         //所有页面往前挪一位
         for (int i = pageStartIndex; i <= pageEndIndex; i++) {
           //pageSignStart[i] = pageSignStart[i + 1]!;
           if (pageSignStart.containsKey(i + 1)) {
-            pageSignStart[i] = pageSignStart[i + 1]!;
-            pageSignStart[i + 1] = pageSignStart[i + 1]! + pageTemp;
+            //pageSignStart[i] = pageSignStart[i + 1]!;
+            //pageSignStart[i + 1] = pageSignStart[i + 1]! + pageTemp;
+            temp[i] = pageSignStart[i + 1]!;
           } else {
-            pageSignStart[i] = pageSignStart[i]! + pageTemp;
+            temp[i] = pageSignStart[i]! + pageTemp;
           }
         }
+
+        for (int i = pageStartIndex; i <= pageEndIndex; i++) {
+          pageSignStart[i] = temp[i]!;
+        }
+
         pageSignStart.remove(pageEndIndex);
         pageStartIndex--;
         pageEndIndex--;
@@ -126,7 +141,7 @@ class _FunctionListState extends State<FunctionList> {
         for (int i = pageStartIndex; i <= pageEndIndex; i++) {
           if (pageSignStart.containsKey(i + 1)) {
             pageSignStart[i] = pageSignStart[i + 1]!;
-            pageSignStart[i + 1] = pageSignStart[i + 1]! + pageTemp;
+            //pageSignStart[i + 1] = pageSignStart[i + 1]! + pageTemp;
           } else {
             //pageSignStart[i + 1] = pageSignStart[i]! + pageTemp;
             pageSignStart[i] = pageSignStart[i]! + pageTemp;
