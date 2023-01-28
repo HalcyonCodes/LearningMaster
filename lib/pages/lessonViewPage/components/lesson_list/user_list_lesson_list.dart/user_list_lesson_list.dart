@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:learning_master/pages/lessonViewPage/components/lesson_list/card_lesson_list/card_lesson_list.dart';
-import 'package:learning_master/pages/lessonViewPage/components/lesson_list/double_bladed_axe.dart';
-import '../util_lesson_list/util_lesson_list.dart';
-import '../function_list_lesson_list.dart/function_list_lesson_list.dart';
+import '../card_lesson_list/card_lesson_list.dart';
+import 'package:double_bladed_axe/double_bladed_axe.dart';
+import '../status_card/user_loadmore_widget.dart';
+import '../status_card/user_loadpre_widget.dart';
 
 //用于http请求和包装好生成的组件列表，这个组件将由用户创建
 class UserList extends StatefulWidget {
-  final LessonListUtil lessonListUtil;
+  final ListUtil listUtil;
   final double height;
   final String initPage;
   final String pageMaxContainCount;
@@ -14,7 +14,7 @@ class UserList extends StatefulWidget {
 
   const UserList({
     super.key,
-    required this.lessonListUtil,
+    required this.listUtil,
     required this.height,
     required this.initPage,
     required this.pageMaxContainCount,
@@ -38,9 +38,9 @@ class _UserListState extends State<UserList> {
   void initState() {
     super.initState();
     //注册方法
-    widget.lessonListUtil.setFuncGetLoadMoreWidgets(loadMore);
-    widget.lessonListUtil.setFuncGetLoadPreWidgets(loadPre);
-    widget.lessonListUtil.setScreenHeight(widget.height);
+    widget.listUtil.setFuncGetLoadMoreWidgets(loadMore);
+    widget.listUtil.setFuncGetLoadPreWidgets(loadPre);
+    widget.listUtil.setScreenHeight(widget.height);
     //初始化
     initPage = int.tryParse(widget.initPage)!;
     pageMaxContainCount = int.tryParse(widget.pageMaxContainCount)!;
@@ -51,13 +51,15 @@ class _UserListState extends State<UserList> {
 
   @override
   Widget build(BuildContext context) {
-    widget.lessonListUtil.setScreenHeight(widget.height);
+    widget.listUtil.setScreenHeight(widget.height);
     return DoubleBladedAxe(
       initWidgets: initWidgets,
       initPage: widget.initPage,
       maxPage: widget.maxPage,
       pageMaxContainCount: widget.pageMaxContainCount,
-      lessonListUtil: widget.lessonListUtil,
+      listUtil: widget.listUtil,
+      loadMoreStatusWidget: UserLoadMoreWidget(listUtil: widget.listUtil),
+      loadPreStatusWidget: UserLoadPreWidget(listUtil: widget.listUtil),
     );
   }
 

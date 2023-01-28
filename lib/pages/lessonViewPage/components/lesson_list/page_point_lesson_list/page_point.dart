@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:learning_master/config/index.dart';
-import '../util_lesson_list/util_lesson_list.dart';
+import 'package:double_bladed_axe/double_bladed_axe.dart';
 
 //页面的页数指示器
 class PagePoint extends StatefulWidget {
-  final LessonListUtil lessonListUtil;
+  final ListUtil lessonListUtil;
   final String currentPage;
   final String maxPage;
   const PagePoint(

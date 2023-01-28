@@ -3,7 +3,7 @@ import './search_lesson_list/search_lesson_list.dart';
 import './page_point_lesson_list/page_point.dart';
 import './user_list_lesson_list.dart/user_list_lesson_list.dart';
 //--
-import './util_lesson_list/util_lesson_list.dart';
+import 'package:double_bladed_axe/double_bladed_axe.dart';
 
 //课时列表组件
 class LessonList extends StatefulWidget {
@@ -28,7 +28,7 @@ class _LessonListState extends State<LessonList> {
   late String currentPage;
   late String maxPage;
   late ScrollController scrollController;
-  late LessonListUtil lessonListUtil;
+  late ListUtil listUtil;
 
   @override
   void initState() {
@@ -37,7 +37,7 @@ class _LessonListState extends State<LessonList> {
     currentPage = widget.currentPage;
     maxPage = widget.maxPage;
     scrollController = ScrollController();
-    lessonListUtil = LessonListUtil();
+    listUtil = ListUtil();
   }
 
   @override
@@ -60,7 +60,7 @@ class _LessonListState extends State<LessonList> {
           PagePoint(
             currentPage: currentPage,
             maxPage: maxPage,
-            lessonListUtil: lessonListUtil,
+            lessonListUtil: listUtil,
           ),
           const SizedBox(
             height: 12,
@@ -69,7 +69,7 @@ class _LessonListState extends State<LessonList> {
             height:
                 MediaQuery.of(context).size.height - 24 * 2 - 12 * 2 - 17 - 46,
             child: UserList(
-              lessonListUtil: lessonListUtil,
+              listUtil: listUtil,
               height: widget.height,
               initPage: currentPage,
               pageMaxContainCount: "2",

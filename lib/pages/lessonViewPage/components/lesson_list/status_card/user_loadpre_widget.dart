@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import '../util_lesson_list/util_lesson_list.dart';
-import './loadpre_status_interface.dart';
-import './loadpre_animated_status_card_lesson_list.dart';
+import './loadpre_animated_status_card.dart';
+import 'package:double_bladed_axe/double_bladed_axe.dart';
 
 class UserLoadPreWidget extends StatefulWidget {
-  final LessonListUtil lessonListUtil;
-  const UserLoadPreWidget({super.key, required this.lessonListUtil});
+  final ListUtil listUtil;
+  const UserLoadPreWidget({super.key, required this.listUtil});
 
   @override
   State<UserLoadPreWidget> createState() => _UserLoadPreWidgetState();
@@ -25,7 +24,7 @@ class _UserLoadPreWidgetState extends State<UserLoadPreWidget>
   @override
   Widget build(BuildContext context) {
     return LoadPreStatusInterface(
-        lessonListUtil: widget.lessonListUtil,
+        listUtil: widget.listUtil,
         animationController: animationController,
         widget: LoadPreAnimatedStatusCard(
             animationController: animationController,
@@ -34,6 +33,6 @@ class _UserLoadPreWidgetState extends State<UserLoadPreWidget>
                     parent: animationController,
                     curve: const Interval((1 / 3) * 0, 1.0,
                         curve: Curves.fastOutSlowIn))),
-            statusString: widget.lessonListUtil.statusText));
+            statusString: widget.listUtil.statusText));
   }
 }

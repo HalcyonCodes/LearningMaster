@@ -1,22 +1,21 @@
 
 import 'package:flutter/material.dart';
-import './status_card_lesson_list.dart';
+import './status_card.dart';
 
-class LoadPreAnimatedStatusCard extends StatefulWidget {
+class LoadMoreAnimatedStatusCard extends StatefulWidget {
   final String statusString;
   final AnimationController animationController;
   final Animation<double> animation; 
-  const LoadPreAnimatedStatusCard({super.key, required this.animationController, required this.animation, required this.statusString});
-
+  const LoadMoreAnimatedStatusCard({super.key, required this.animationController, required this.animation, required this.statusString});
 
   @override
-  State<LoadPreAnimatedStatusCard> createState() => _LoadPreAnimatedStatusCardState();
+  State<LoadMoreAnimatedStatusCard> createState() => _LoadMoreAnimatedStatusCardState();
 
 }
 
-class _LoadPreAnimatedStatusCardState extends State<LoadPreAnimatedStatusCard> {
+class _LoadMoreAnimatedStatusCardState extends State<LoadMoreAnimatedStatusCard> {
 
-   @override
+  @override
   void initState() {
     super.initState();
   }
@@ -31,7 +30,7 @@ class _LoadPreAnimatedStatusCardState extends State<LoadPreAnimatedStatusCard> {
           child: Transform(
             transform: Matrix4.translationValues(
               0.0, 
-              30 * (widget.animation.value - 1.0), 
+              30 * (1.0 - widget.animation.value), 
               0.0),
             child: StatusCard(status: widget.statusString,),
           ),
@@ -39,8 +38,6 @@ class _LoadPreAnimatedStatusCardState extends State<LoadPreAnimatedStatusCard> {
       },
     );
   }
-
-  
 
 
 }

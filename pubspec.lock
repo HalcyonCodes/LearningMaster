@@ -73,6 +73,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.0.5"
+  double_bladed_axe:
+    dependency: "direct main"
+    description:
+      path: "../double_bladed_axe"
+      relative: true
+    source: path
+    version: "1.0.0+1"
   fake_async:
     dependency: transitive
     description:
@@ -84,11 +91,10 @@ packages:
   fluro:
     dependency: "direct main"
     description:
-      name: fluro
-      sha256: "66d82964a1b6967def34155de92f7bb87ee247aba53ea5dbb70e2bf206865dbc"
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "2.0.4"
+      path: "../fluro"
+      relative: true
+    source: path
+    version: "2.0.3"
   flutter:
     dependency: "direct main"
     description: flutter
@@ -281,5 +287,5 @@ packages:
     source: hosted
     version: "6.2.2"
 sdks:
-  dart: ">=2.18.2 <4.0.0"
+  dart: ">=2.19.0-444.6.beta <4.0.0"
   flutter: ">=2.11.0-0.1.pre"

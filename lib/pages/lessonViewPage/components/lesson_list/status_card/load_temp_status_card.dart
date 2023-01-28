@@ -1,40 +1,37 @@
 import 'package:flutter/material.dart';
-import '../util_lesson_list/util_lesson_list.dart';
-
+import 'package:double_bladed_axe/double_bladed_axe.dart';
 
 //包装加载指示器以便获得高度
 
 class LoadTemp extends StatefulWidget {
-  final Widget  loadWidget;
-  final LessonListUtil lessonListUtil;
-  const LoadTemp({super.key, required this.loadWidget, required this.lessonListUtil});
+  final Widget loadWidget;
+  final ListUtil listUtil;
+  const LoadTemp({super.key, required this.loadWidget, required this.listUtil});
 
   @override
   State<LoadTemp> createState() => _LoadTempState();
 }
 
 class _LoadTempState extends State<LoadTemp> {
-
   late GlobalKey key;
 
-  
   @override
   void initState() {
     super.initState();
     key = GlobalKey();
-    widget.lessonListUtil.setFuncGetLoadWidgetHeight(getHeight);
+    widget.listUtil.setFuncGetLoadWidgetHeight(getHeight);
   }
 
   @override
   Widget build(BuildContext context) {
     return Builder(
-      key: key,
-      builder: (context){
-        return widget.loadWidget;
-    });
+        key: key,
+        builder: (context) {
+          return widget.loadWidget;
+        });
   }
 
-  double getHeight(){
+  double getHeight() {
     return key.currentContext!.size!.height;
   }
 }
