@@ -1,9 +1,12 @@
-import 'package:flutter/material.dart';
-import 'package:learning_master/config/index.dart';
+import '../../../../../config/index.dart';
 
-//课程卡片
+import 'package:flutter/material.dart';
+
+
+//课程简介课程卡片
 class ClassCard extends StatelessWidget {
-  final String classId;
+
+final String classId;
   final String className;
   final String lastUpdateTime;
   final String classCount;

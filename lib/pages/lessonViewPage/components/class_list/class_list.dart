@@ -41,9 +41,9 @@ class _ClassListState extends State<ClassList> {
               behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
                child: ListView(
                 children: [
-                  ClassCard(lessonId: '001', lastUpdateTime: '2022/10/14', lessonCount: '50', lessonName: '游戏逆向安全', lessonStatus: '连载中', onClick: (){},),
-                  ClassCard(lessonId: '001', lastUpdateTime: '2022/10/14', lessonCount: '50', lessonName: '游戏逆向安全游戏逆向安全', lessonStatus: '连载中', onClick: (){},),
-                  ClassCard(lessonId: '001', lastUpdateTime: '2022/10/14', lessonCount: '50', lessonName: 'C++基础', lessonStatus: '连载中', onClick: (){},),
+                  ClassCard(classId: '001', lastUpdateTime: '2022/10/14', classCount: '50', className: '游戏逆向安全', classStatus: '连载中', onClick: (){},),
+                  ClassCard(classId: '001', lastUpdateTime: '2022/10/14', classCount: '50', className: '游戏逆向安全游戏逆向安全', classStatus: '连载中', onClick: (){},),
+                  ClassCard(classId: '001', lastUpdateTime: '2022/10/14', classCount: '50', className: 'C++基础', classStatus: '连载中', onClick: (){},),
                    
                 ],
                ),

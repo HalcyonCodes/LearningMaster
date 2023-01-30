@@ -20,7 +20,7 @@ class SelectTitle extends StatelessWidget {
                 children: [
                   SelectTitleItem(
                     isSelect: currentIndex == index, 
-                    title: index == 0 ? KString.navClassString: KString.navClassClassString, 
+                    title: index == 0 ? KString.classInNavString: KString.classConbinationInNavString, 
                     iconPath: index == 0? 'svg/github.svg': 'svg/硬盘.svg', 
                     onClick: index == 0? (){} : (){}),
                   const SizedBox(height: 20,)

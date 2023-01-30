@@ -1,6 +1,9 @@
 import "package:flutter/material.dart";
+import 'package:learning_master/pages/classConbinationPage/components/message_conbination/message_conbination.dart';
 import '../../config/index.dart';
 import './components/nav/nav.dart';
+import './components/class_conbination_list/class_conbination_list.dart';
+import './components/class_profile_conbination/class_profile_conbination.dart';
 
 class ClassConbinationPage extends StatefulWidget {
   const ClassConbinationPage({super.key});
@@ -39,7 +42,24 @@ class _ClassConbinationPageState extends State<ClassConbinationPage> {
                     currentIndex: 1,
                     userName: 'reddock',
                   ),
-                  //课程
+                  //课程组合列表
+                  Container(
+                    margin: const EdgeInsets.only(left: 24),
+                    child: ClassConbinationList(
+                      height: MediaQuery.of(context).size.height,
+                      initPage: '3',
+                      maxPage: '5',
+                      pageMaxContainerCount: '3',
+                      initSearchString: null,
+                    ),
+                  ),
+                  Container(
+                      margin: const EdgeInsets.only(left: 24),
+                      child: ConbinationMessage()),
+                  Container(
+                    margin: const EdgeInsets.only(left: 24),
+                    child: ClassProfile(classProfile: 'C++作为一门基础语言必须掌握'),
+                  )
 
                   //课时
                 ]),

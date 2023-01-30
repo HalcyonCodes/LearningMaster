@@ -33,8 +33,8 @@ class _SelectTitleState extends State<SelectTitle> {
             SelectTitleItem(
                 isSelect: currentIndex == index,
                 title: index == 0
-                    ? KString.navClassString
-                    : KString.navClassClassString,
+                    ? KString.classInNavString
+                    : KString.classConbinationInNavString,
                 iconPath: index == 0 ? 'svg/github.svg' : 'svg/硬盘.svg',
                 onClick: index == 0 ? firstItemOnClick : secondItemOnClick),
             const SizedBox(

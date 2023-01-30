@@ -69,7 +69,7 @@ class _ClassSearchState extends State<ClassSearch> {
                     onSubmitted: onSubmitted,
                     decoration: InputDecoration(
                       border: InputBorder.none,
-                      hintText: KString.classSearchInitString,
+                      hintText: KString.initInClassSearchString,
                       contentPadding: EdgeInsets.zero,
                       hintStyle: KFont.searchBarInitStyle,
                       isDense: true,

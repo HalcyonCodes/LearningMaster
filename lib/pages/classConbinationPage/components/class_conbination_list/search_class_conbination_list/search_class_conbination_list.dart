@@ -3,18 +3,16 @@ import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:learning_master/config/index.dart';
 
-
 //课程卡片列表顶部搜索栏
-class LessonSearch extends StatefulWidget {
+class ClassConbinationSearch extends StatefulWidget {
   final String? initSearchString;
-  const LessonSearch({super.key, required this.initSearchString});
+  const ClassConbinationSearch({super.key, required this.initSearchString});
 
   @override
-  State<LessonSearch> createState() => _LessonSearchState();
+  State<ClassConbinationSearch> createState() => _ClassConbinationSearchState();
 }
 
-class _LessonSearchState extends State<LessonSearch> {
-
+class _ClassConbinationSearchState extends State<ClassConbinationSearch> {
   late TextEditingController textEditController;
   @override
   void initState() {
@@ -34,11 +32,12 @@ class _LessonSearchState extends State<LessonSearch> {
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
         child: Container(
+          height: 46,
           alignment: Alignment.center,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisSize: MainAxisSize.max,
+            mainAxisSize: MainAxisSize.min,
             children: [
               SizedBox(
                 height: 22,
@@ -55,6 +54,7 @@ class _LessonSearchState extends State<LessonSearch> {
                   height: 22,
                   alignment: Alignment.center,
                   child: TextField(
+                    
                     controller: textEditController,
                     maxLines: 1,
                     style: KFont.searchBarStyle,
@@ -62,6 +62,7 @@ class _LessonSearchState extends State<LessonSearch> {
                     cursorColor: Colors.black,
                     cursorWidth: 2,
                     cursorHeight: 22,
+                    keyboardType: TextInputType.text,
                     inputFormatters: <TextInputFormatter>[
                       LengthLimitingTextInputFormatter(200),
                     ],
@@ -69,16 +70,16 @@ class _LessonSearchState extends State<LessonSearch> {
                     onSubmitted: onSubmitted,
                     decoration: InputDecoration(
                       border: InputBorder.none,
-                      hintText: KString.initInLessonSearchString,
+                      hintText: KString.initInClassConbinationSearchString,
                       contentPadding: EdgeInsets.zero,
                       hintStyle: KFont.searchBarInitStyle,
                       isDense: true,
                       hintMaxLines: 1,
-                  
+                      
                     ),
-                    strutStyle: const StrutStyle(
-                      leading: 0
-                    ),
+                    strutStyle: const StrutStyle(leading: 0),
+                    onChanged: (text){},
+                    
                   ),
                 ),
               )
@@ -89,9 +90,5 @@ class _LessonSearchState extends State<LessonSearch> {
     );
   }
 
-
-
-  void onSubmitted(String text){
-
-  }
+  void onSubmitted(String text) {}
 }

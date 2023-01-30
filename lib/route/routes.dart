@@ -13,6 +13,7 @@ class Routes {
     router.notFoundHandler = Handler(
         handlerFunc: (BuildContext? context, Map<String, List<String>> para) {
       print('Error ==> Route Was Not Found!');
+      return null;
     });
 
     //----路由配置----
