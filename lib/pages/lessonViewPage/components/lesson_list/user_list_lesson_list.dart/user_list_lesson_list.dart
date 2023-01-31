@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import '../card_lesson_list/card_lesson_list.dart';
 import 'package:double_bladed_axe/double_bladed_axe.dart';
-import '../status_card/user_loadmore_widget.dart';
-import '../status_card/user_loadpre_widget.dart';
+import '../../status_card/user_loadmore_widget.dart';
+import '../../status_card/user_loadpre_widget.dart';
 
 //用于http请求和包装好生成的组件列表，这个组件将由用户创建
 class UserList extends StatefulWidget {

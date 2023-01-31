@@ -130,7 +130,7 @@ class ClassCard extends StatelessWidget {
                         ),
                         const Expanded(flex: 1,child: SizedBox()),
                         Expanded(
-                          flex: 2,
+                          flex: 3,
                           child: Container(
                             alignment: Alignment.centerRight,
                             child: Text(

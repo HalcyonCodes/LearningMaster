@@ -1,20 +1,47 @@
 import "package:flutter/material.dart";
 import '../../config/index.dart';
 import './components/nav/nav.dart';
-import 'components/class_list/class_list.dart';
+import './components/class_list/future_class_list.dart';
 import './components/lesson_list/lesson_list.dart';
+//viewModel
+import './model/view_model/class_list_viewmodel.dart';
+
+//util
+import './pageUtil/page_util.dart';
 
 class LessonViewPage extends StatefulWidget {
-  const LessonViewPage({super.key});
+  final String? classListSearchString;
+  final String? classListClassId;
+  final String? classListPage;
+
+  const LessonViewPage(
+      {super.key,
+      this.classListClassId,
+      this.classListPage,
+      this.classListSearchString});
 
   @override
   State<LessonViewPage> createState() => _LessonViewPageState();
 }
 
 class _LessonViewPageState extends State<LessonViewPage> {
+  late String? classListSearchString;
+  late String? classListClassId;
+  late String? classListPage;
+
+  //pageUtil
+  LessonViewPageUtil pageUtil = LessonViewPageUtil();
+  //viewModel
+  late ClassListViewModel classListViewModel;
+
   @override
   void initState() {
     super.initState();
+    //初始化
+    classListClassId = widget.classListClassId;
+    classListPage = widget.classListPage;
+    classListSearchString = widget.classListSearchString;
+    classListViewModel = ClassListViewModel(pageUtil: pageUtil);
   }
 
   @override
@@ -43,10 +70,15 @@ class _LessonViewPageState extends State<LessonViewPage> {
                   ),
                   //课程
                   Container(
-                      margin: const EdgeInsets.only(left: 24),
-                      child: const ClassList(
-                        initString: null,
-                      )),
+                    margin: const EdgeInsets.only(left: 24),
+                    child: ClassListFuture(
+                      pageUtil: pageUtil,
+                      viewModel: classListViewModel,
+                      searchString: classListSearchString,
+                      classId: classListClassId,
+                      page: classListPage,
+                    ),
+                  ),
                   //课时
                   Container(
                     margin: const EdgeInsets.only(left: 24),
