@@ -3,6 +3,8 @@ import 'package:double_bladed_axe/double_bladed_axe.dart';
 import '../../status_card/user_loadmore_widget.dart';
 import '../../status_card/user_loadpre_widget.dart';
 import '../card_class_conbination_list/card_class_conbination_list.dart';
+import '../../../model/view_model/class_conbination_viewmodel.dart';
+import '../../../util_class_conbination_page/page_util.dart';
 
 //课程组合卡片容器,将viewmodel的数据包装成cards
 class ClasssConbinationCardList extends StatefulWidget {
@@ -11,6 +13,8 @@ class ClasssConbinationCardList extends StatefulWidget {
   final String maxPage;
   final String pageMaxContainCount;
   final ListUtil listUtil;
+  final ClassConbinationPageUtil pageUtil;
+  final ClassConbinationListViewModel viewModel;
 
   const ClasssConbinationCardList({
     super.key,
@@ -19,6 +23,8 @@ class ClasssConbinationCardList extends StatefulWidget {
     required this.maxPage,
     required this.pageMaxContainCount,
     required this.listUtil,
+    required this.viewModel,
+    required this.pageUtil,
   });
 
   @override
@@ -32,7 +38,7 @@ class _ClasssConbinationCardListState extends State<ClasssConbinationCardList> {
   late String maxPage;
   late String pageMaxContainCount;
   late List<Widget> initWidgets;
-  //late List<Widget> widgetsTemp;
+  late List<Widget> widgetsTemp;
 
   @override
   void initState() {
@@ -69,28 +75,53 @@ class _ClasssConbinationCardListState extends State<ClasssConbinationCardList> {
   }
 
   void initWidget() {
-    initWidgets = List.generate(10, (index) {
-      return const ClassConbiantionCard(
-        conbinationId: 'B001',
-        classCount: '15',
-        conbinationTitle: '全栈技术开发',
-        difficultyLevel: '8.5',
-        lengthLevel: '8.5',
-        usabilityLevel: '8.5',
+    initWidgets = [];
+    initWidgets = List.generate(
+        widget.viewModel.classConbinationModel!.data.conbinationCards.length,
+        (index) {
+      return ClassConbiantionCard(
+        conbinationId: widget.viewModel.classConbinationModel!.data
+            .conbinationCards[index].conbinationId!,
+        classCount: widget.viewModel.classConbinationModel!.data
+            .conbinationCards[index].classCount!,
+        conbinationTitle: widget.viewModel.classConbinationModel!.data
+            .conbinationCards[index].conbinationTitle!,
+        difficultyLevel: widget.viewModel.classConbinationModel!.data
+            .conbinationCards[index].difficultyLevel!,
+        lengthLevel: widget.viewModel.classConbinationModel!.data
+            .conbinationCards[index].lengthLevel!,
+        usabilityLevel: widget.viewModel.classConbinationModel!.data
+            .conbinationCards[index].usabilityLevel!,
+        onClick: () {},
       );
     });
-  }    
+  }
 
   Future<List<Widget>> loadMoreWidgets() async {
     List<Widget> widgetsTemp = [];
-    widgetsTemp = List.generate(3, (index) {
-      return const ClassConbiantionCard(
-        conbinationId: 'B001',
-        classCount: '15',
-        conbinationTitle: '游戏逆向安全',
-        difficultyLevel: '8.5',
-        lengthLevel: '8.5',
-        usabilityLevel: '8.5',
+    int pageEndIndex = widget.listUtil.getPageEndIndex!();
+    //请求
+    widget.viewModel.loadMore(
+      pageEndIndex, widget.viewModel.searchString,
+    );
+
+    widgetsTemp = List.generate(
+        widget.viewModel.classConbinationModel!.data.conbinationCards.length,
+        (index) {
+      return ClassConbiantionCard(
+        conbinationId: widget.viewModel.classConbinationModel!.data
+            .conbinationCards[index].conbinationId!,
+        classCount: widget.viewModel.classConbinationModel!.data
+            .conbinationCards[index].classCount!,
+        conbinationTitle: widget.viewModel.classConbinationModel!.data
+            .conbinationCards[index].conbinationTitle!,
+        difficultyLevel: widget.viewModel.classConbinationModel!.data
+            .conbinationCards[index].difficultyLevel!,
+        lengthLevel: widget.viewModel.classConbinationModel!.data
+            .conbinationCards[index].lengthLevel!,
+        usabilityLevel: widget.viewModel.classConbinationModel!.data
+            .conbinationCards[index].usabilityLevel!,
+        onClick: () {},
       );
     });
     return widgetsTemp;
@@ -98,16 +129,35 @@ class _ClasssConbinationCardListState extends State<ClasssConbinationCardList> {
 
   Future<List<Widget>> loadPreWIdgets() async {
     List<Widget> widgetsTemp = [];
-    widgetsTemp = List.generate(3, (index) {
-      return const ClassConbiantionCard(
-        conbinationId: 'B001',
-        classCount: '15',
-        conbinationTitle: '嵌入式开发',
-        difficultyLevel: '8.5',
-        lengthLevel: '8.5',
-        usabilityLevel: '8.5',
+    int pageStartIndex = widget.listUtil.getPageStartIndex!();
+    //请求
+    widget.viewModel.loadPre(
+      pageStartIndex, widget.viewModel.searchString,
+    );
+
+    widgetsTemp = List.generate(
+        widget.viewModel.classConbinationModel!.data.conbinationCards.length,
+        (index) {
+      return ClassConbiantionCard(
+        conbinationId: widget.viewModel.classConbinationModel!.data
+            .conbinationCards[index].conbinationId!,
+        classCount: widget.viewModel.classConbinationModel!.data
+            .conbinationCards[index].classCount!,
+        conbinationTitle: widget.viewModel.classConbinationModel!.data
+            .conbinationCards[index].conbinationTitle!,
+        difficultyLevel: widget.viewModel.classConbinationModel!.data
+            .conbinationCards[index].difficultyLevel!,
+        lengthLevel: widget.viewModel.classConbinationModel!.data
+            .conbinationCards[index].lengthLevel!,
+        usabilityLevel: widget.viewModel.classConbinationModel!.data
+            .conbinationCards[index].usabilityLevel!,
+        onClick: () {},
       );
     });
     return widgetsTemp;
   }
+
+
+  //刷新
+
 }

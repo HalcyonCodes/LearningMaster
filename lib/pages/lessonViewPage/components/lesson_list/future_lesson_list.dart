@@ -70,7 +70,7 @@ class _LessonListFutureState extends State<LessonListFuture> {
                       maxPage: widget.viewModel.maxPage!,
                       searchInitString: searchString,
                       maxPageContainCount:
-                          widget.viewModel.pageMaxContainerCount!,
+                          widget.viewModel.maxPageContainerCount!,
                       lessonListViewModel: widget.viewModel,
                     );
                   }

@@ -56,7 +56,7 @@ class _ClassListFutureState extends State<ClassListFuture> {
                   initString: searchString,
                   initPage: widget.viewModel.initPage,
                   maxPage: widget.viewModel.maxPage,
-                  pageMaxContainerCount: widget.viewModel.pageMaxContainerCount,
+                  pageMaxContainerCount: widget.viewModel.maxPageContainerCount,
                   pageUtil: widget.pageUtil,
                   viewModel: widget.viewModel);
             }

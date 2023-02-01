@@ -9,7 +9,7 @@ class LessonListViewModel {
   final LessonViewPageUtil pageUtil;
   late String? initPage;
   late String? maxPage;
-  late String? pageMaxContainerCount;
+  late String? maxPageContainerCount;
   late String? searchString;
   late Response? response;
   late LessonListModel? lessonListModel;
@@ -30,7 +30,7 @@ class LessonListViewModel {
     lessonId = null;
     initPage = null;
     maxPage = null;
-    pageMaxContainerCount = null;
+    maxPageContainerCount = null;
 
     //拷贝
     searchString = searchString;
@@ -70,7 +70,7 @@ class LessonListViewModel {
       //写入状态
       initPage = lessonListModel!.data.initPage;
       maxPage = lessonListModel!.data.maxPage;
-      pageMaxContainerCount = lessonListModel!.data.maxPageContainCount;
+      maxPageContainerCount = lessonListModel!.data.maxPageContainCount;
       listClassId = lessonListModel!.data.classId;
       return response!.statusCode!;
     } else {
@@ -98,7 +98,7 @@ class LessonListViewModel {
       //写入状态
       initPage = lessonListModel!.data.initPage;
       maxPage = lessonListModel!.data.maxPage;
-      pageMaxContainerCount = lessonListModel!.data.maxPageContainCount;
+      maxPageContainerCount = lessonListModel!.data.maxPageContainCount;
       listClassId = lessonListModel!.data.classId;
       return response!.statusCode!;
     } else {
@@ -124,7 +124,7 @@ class LessonListViewModel {
       //写入状态
       initPage = lessonListModel!.data.initPage;
       maxPage = lessonListModel!.data.maxPage;
-      pageMaxContainerCount = lessonListModel!.data.maxPageContainCount;
+      maxPageContainerCount = lessonListModel!.data.maxPageContainCount;
       listClassId = lessonListModel!.data.classId;
       return response!.statusCode!;
     } else {

@@ -2,8 +2,10 @@ import "package:flutter/material.dart";
 import 'package:learning_master/pages/classConbinationPage/components/message_conbination/message_conbination.dart';
 import '../../config/index.dart';
 import './components/nav/nav.dart';
-import './components/class_conbination_list/class_conbination_list.dart';
+import './components/class_conbination_list/future_class_conbination_list.dart';
 import './components/class_profile_conbination/class_profile_conbination.dart';
+import './util_class_conbination_page/page_util.dart';
+import './model/view_model/class_conbination_viewmodel.dart';
 
 class ClassConbinationPage extends StatefulWidget {
   const ClassConbinationPage({super.key});
@@ -13,9 +15,13 @@ class ClassConbinationPage extends StatefulWidget {
 }
 
 class _ClassConbinationPageState extends State<ClassConbinationPage> {
+  ClassConbinationPageUtil pageUtil = ClassConbinationPageUtil();
+  late ClassConbinationListViewModel viewModel;
+
   @override
   void initState() {
     super.initState();
+    viewModel = ClassConbinationListViewModel(pageUtil: pageUtil);
   }
 
   @override
@@ -45,12 +51,11 @@ class _ClassConbinationPageState extends State<ClassConbinationPage> {
                   //课程组合列表
                   Container(
                     margin: const EdgeInsets.only(left: 24),
-                    child: ClassConbinationList(
-                      height: MediaQuery.of(context).size.height,
-                      initPage: '3',
-                      maxPage: '5',
-                      pageMaxContainerCount: '3',
-                      initSearchString: null,
+                    child: ClassConbinationListFuture(
+                      viewModel: viewModel,
+                      pageUtil: pageUtil,
+                      conbinationId: null,
+                      searchString: null,
                     ),
                   ),
                   Container(
