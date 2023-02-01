@@ -19,7 +19,7 @@ class ClassListViewModel {
 
   //刷新数据
   Future<int> refresh(
-      String? classId, String? page, String? searchString) async {
+    String? classId, String? searchString) async {
     //清理
     classListModel = null;
     response = null;
@@ -28,33 +28,16 @@ class ClassListViewModel {
 
     //===拼接请求字符串
     if (searchString != null) {
-      if (page != null) {
-        if (classId != null) {
-          //查询是否有classId项，加载classId项，在url中消除page一项
-        } else {
-          //在搜索中请求目标页的数据，如果没有目标页则返回最近的那一页并通过pageUtil更新url
-        }
-      } else {
-        if (classId != null) {
-          //直接在搜索结果中查找classId那一项，并显示结果，不维护url
-        } else {
-          //直接显示字符串搜索结果，不维护url
-        }
-      }
+      //根据searchString返回数据
+      
     } else {
-      if (page != null) {
+      
         if (classId != null) {
           //直接显示classId那一项
         } else {
           //显示数据库普通状态下的那一页，如果没有则加载最近的一页并修改url
         }
-      } else {
-        if (classId != null) {
-          //直接显示classId那一项
-        } else {
-          //直接加载普通状态下的最后一页
-        }
-      }
+     
     }
 
     //===
@@ -84,9 +67,9 @@ class ClassListViewModel {
     searchString = searchString;
     //判断是否在搜索范围内的加载
     if(searchString == null){
-      //拼接请求字符串
+      //通过classId取得表并用pageEndIndex分页
     }else{
-      //拼接请求字符串
+      //通过searchString取得表并用pageEndIndex分页
     }
     //===
     //dio请求数据
@@ -116,9 +99,9 @@ class ClassListViewModel {
     searchString = searchString;
     //判断是否在搜索范围内的加载
     if(searchString == null){
-      //拼接请求字符串
+      //通过classId取得表并用pageStartIndex分页
     }else{
-      //拼接请求字符串
+       //通过searchString取得表并用pageStartIndex分页
     }
     //===
     //dio请求数据

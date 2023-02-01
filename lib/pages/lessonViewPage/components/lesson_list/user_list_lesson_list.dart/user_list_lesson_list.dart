@@ -3,6 +3,7 @@ import '../card_lesson_list/card_lesson_list.dart';
 import 'package:double_bladed_axe/double_bladed_axe.dart';
 import '../../status_card/user_loadmore_widget.dart';
 import '../../status_card/user_loadpre_widget.dart';
+import '../../../model/view_model/lesson_list_viewmodel.dart';
 
 //用于http请求和包装好生成的组件列表，这个组件将由用户创建
 class UserList extends StatefulWidget {
@@ -11,15 +12,16 @@ class UserList extends StatefulWidget {
   final String initPage;
   final String pageMaxContainCount;
   final String maxPage;
+  final LessonListViewModel viewModel;
 
-  const UserList({
-    super.key,
-    required this.listUtil,
-    required this.height,
-    required this.initPage,
-    required this.pageMaxContainCount,
-    required this.maxPage,
-  });
+  const UserList(
+      {super.key,
+      required this.listUtil,
+      required this.height,
+      required this.initPage,
+      required this.pageMaxContainCount,
+      required this.maxPage,
+      required this.viewModel});
 
   @override
   State<UserList> createState() => _UserListState();
@@ -31,8 +33,6 @@ class _UserListState extends State<UserList> {
   late int maxPage;
 
   List<Widget> initWidgets = [];
-
-  int testCount = 0;
 
   @override
   void initState() {
@@ -65,41 +65,59 @@ class _UserListState extends State<UserList> {
 
   //利用viewModel进行Http请求
   Future<List<Widget>> loadPre() async {
-    List<Widget> widgets = List.generate(5, (index) {
-      testCount++;
-      return LessonCard(
-          className: 'className',
-          lessonId: 'pre$testCount',
-          lessonTitle: 'lessonTitle',
-          lessonProfile: 'lessonProfile',
-          lessonTags: const ['123', '234']);
+    List<Widget> widgets = List.generate(
+      widget.viewModel.lessonListModel!.data.lessonCards.length, 
+      (index) {
+        return LessonCard(
+            className: widget
+                .viewModel.lessonListModel!.data.lessonCards[index].className,
+            lessonId: widget
+                .viewModel.lessonListModel!.data.lessonCards[index].lessonId,
+            lessonTitle: widget
+                .viewModel.lessonListModel!.data.lessonCards[index].lessonTitle,
+            lessonProfile: widget.viewModel.lessonListModel!.data
+                .lessonCards[index].lessonProfile,
+            lessonTags: widget
+                .viewModel.lessonListModel!.data.lessonCards[index].lessonTags);
     });
     return widgets;
   }
 
   //利用viewModel进行Http请求
   Future<List<Widget>> loadMore() async {
-    List<Widget> widgets = List.generate(5, (index) {
-      testCount++;
-      return LessonCard(
-          className: 'className',
-          lessonId: 'more$testCount',
-          lessonTitle: 'lessonTitle',
-          lessonProfile: 'lessonProfile',
-          lessonTags: const ['123', '234']);
+       List<Widget> widgets = List.generate(
+      widget.viewModel.lessonListModel!.data.lessonCards.length, 
+      (index) {
+        return LessonCard(
+            className: widget
+                .viewModel.lessonListModel!.data.lessonCards[index].className,
+            lessonId: widget
+                .viewModel.lessonListModel!.data.lessonCards[index].lessonId,
+            lessonTitle: widget
+                .viewModel.lessonListModel!.data.lessonCards[index].lessonTitle,
+            lessonProfile: widget.viewModel.lessonListModel!.data
+                .lessonCards[index].lessonProfile,
+            lessonTags: widget
+                .viewModel.lessonListModel!.data.lessonCards[index].lessonTags);
     });
     return widgets;
   }
 
   void initItem() {
-    initWidgets = List.generate(5, (index) {
-      testCount++;
+    initWidgets = [];
+    initWidgets = List.generate(
+        widget.viewModel.lessonListModel!.data.lessonCards.length, (index) {
       return LessonCard(
-          className: 'className',
-          lessonId: 'init$testCount',
-          lessonTitle: 'lessonTitle',
-          lessonProfile: 'lessonProfile',
-          lessonTags: const ['123', '234']);
+          className: widget
+              .viewModel.lessonListModel!.data.lessonCards[index].className,
+          lessonId: widget
+              .viewModel.lessonListModel!.data.lessonCards[index].lessonId,
+          lessonTitle: widget
+              .viewModel.lessonListModel!.data.lessonCards[index].lessonTitle,
+          lessonProfile: widget
+              .viewModel.lessonListModel!.data.lessonCards[index].lessonProfile,
+          lessonTags: widget
+              .viewModel.lessonListModel!.data.lessonCards[index].lessonTags);
     });
   }
 }

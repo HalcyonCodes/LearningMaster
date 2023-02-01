@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import '../../../../../config/index.dart';
 import '../card_lesson_list/tag_lesson_list.dart';
 
-class LessonCard extends StatefulWidget {
+
+class LessonCard extends StatelessWidget {
   final String? className;
   final String? lessonId;
   final String? lessonTitle;
@@ -20,35 +21,14 @@ class LessonCard extends StatefulWidget {
     this.onClick,
   });
 
-  @override
-  State<LessonCard> createState() => _LessonCardState();
-}
 
-class _LessonCardState extends State<LessonCard> {
-  late String className;
-  late String lessonId;
-  late String lessonTitle;
-  late String lessonProfile;
-  late List<String> lessonTags;
-  late Function? onClick;
-
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  List<Widget> tags = [];
 
   @override
   Widget build(BuildContext context) {
-    className = widget.className!;
-    lessonId = widget.lessonId!;
-    lessonTitle = widget.lessonTitle!;
-    lessonProfile = widget.lessonProfile!;
-    lessonTags = widget.lessonTags!;
+ 
 
-    tags = List.generate(widget.lessonTags!.length, (index) {
-      return LessonTag(tagName: widget.lessonTags![index]);
+    List<Widget>tags = List.generate(lessonTags!.length, (index) {
+      return LessonTag(tagName: lessonTags![index]);
     });
 
     return Column(
@@ -83,7 +63,7 @@ class _LessonCardState extends State<LessonCard> {
                           child: SingleChildScrollView(
                               scrollDirection: Axis.horizontal,
                               child: Text(
-                                className,
+                                className!,
                                 style: KFont.greyMsgStyle,
                               ))),
                       const Expanded(
@@ -108,7 +88,7 @@ class _LessonCardState extends State<LessonCard> {
                     height: 12,
                   ),
                   Text(
-                    widget.lessonTitle!,
+                    lessonTitle!,
                     style: KFont.classCardTitleStyle,
                     maxLines: 5,
                     overflow: TextOverflow.fade,
@@ -117,7 +97,7 @@ class _LessonCardState extends State<LessonCard> {
                     height: 12,
                   ),
                   Text(
-                    widget.lessonProfile!,
+                    lessonProfile!,
                     style: KFont.greyMsgStyle,
                     maxLines: 5,
                     overflow: TextOverflow.fade,

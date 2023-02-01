@@ -4,20 +4,24 @@ import './page_point_lesson_list/page_point.dart';
 import './user_list_lesson_list.dart/user_list_lesson_list.dart';
 //--
 import 'package:double_bladed_axe/double_bladed_axe.dart';
-
+//--
+import '../../model/view_model/lesson_list_viewmodel.dart';
 //课时列表组件
 class LessonList extends StatefulWidget {
   final String? searchInitString;
-  final String currentPage;
+  final String initPage;
   final String maxPage;
-  final double height;
+  final String maxPageContainCount;
+  final LessonListViewModel lessonListViewModel;
 
   const LessonList(
       {super.key,
       this.searchInitString,
-      required this.currentPage,
+      required this.initPage,
       required this.maxPage,
-      required this.height});
+      required this.maxPageContainCount,
+      required this.lessonListViewModel
+      });
 
   @override
   State<LessonList> createState() => _LessonListState();
@@ -27,15 +31,18 @@ class _LessonListState extends State<LessonList> {
   late String? searchInitString;
   late String currentPage;
   late String maxPage;
+  late String maxPageContainCount;
   late ScrollController scrollController;
   late ListUtil listUtil;
 
+  
   @override
   void initState() {
     super.initState();
     searchInitString = widget.searchInitString;
-    currentPage = widget.currentPage;
+    currentPage = widget.initPage;
     maxPage = widget.maxPage;
+    maxPageContainCount = widget.maxPageContainCount;
     scrollController = ScrollController();
     listUtil = ListUtil();
   }
@@ -70,10 +77,11 @@ class _LessonListState extends State<LessonList> {
                 MediaQuery.of(context).size.height - 24 * 2 - 12 * 2 - 17 - 46,
             child: UserList(
               listUtil: listUtil,
-              height: widget.height,
+              height: MediaQuery.of(context).size.height - 24 * 2 - 12 * 2 - 17 - 46,
               initPage: currentPage,
-              pageMaxContainCount: "2",
+              pageMaxContainCount: maxPageContainCount,
               maxPage: maxPage,
+              viewModel: widget.lessonListViewModel,
             ),
           )
         ],

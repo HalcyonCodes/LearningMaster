@@ -5,7 +5,6 @@ import './class_list.dart';
 
 class ClassListFuture extends StatefulWidget {
   final String? classId;
-  final String? page;
   final String? searchString;
   final LessonViewPageUtil pageUtil;
   final ClassListViewModel viewModel;
@@ -13,7 +12,6 @@ class ClassListFuture extends StatefulWidget {
       {super.key,
       this.searchString,
       this.classId,
-      this.page,
       required this.pageUtil,
       required this.viewModel});
   @override
@@ -23,19 +21,19 @@ class ClassListFuture extends StatefulWidget {
 class _ClassListFutureState extends State<ClassListFuture> {
   late String? searchString;
   late String? classId;
-  late String? page;
+
   @override
   void initState() {
     super.initState();
     searchString = widget.searchString;
     classId = widget.classId;
-    page = widget.page;
+
   }
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: widget.viewModel.refresh(classId, page, searchString),
+      future: widget.viewModel.refresh(classId, searchString),
       builder: ((context, snapshot) {
         switch (snapshot.connectionState) {
           case ConnectionState.none:
@@ -59,6 +57,7 @@ class _ClassListFutureState extends State<ClassListFuture> {
                   initPage: widget.viewModel.initPage,
                   maxPage: widget.viewModel.maxPage,
                   pageMaxContainerCount: widget.viewModel.pageMaxContainerCount,
+                  pageUtil: widget.pageUtil,
                   viewModel: widget.viewModel);
             }
         }
