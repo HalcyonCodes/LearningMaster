@@ -1,8 +1,8 @@
 import "package:flutter/material.dart";
 import '../../config/index.dart';
 import './components/nav/nav.dart';
-import './components/class_list/future_class_list.dart';
-import './components/lesson_list/future_lesson_list.dart';
+import './components/class_list/class_list.dart';
+import './components/lesson_list/lesson_list.dart';
 //viewModel
 import './model/view_model/class_list_viewmodel.dart';
 import './model/view_model/lesson_list_viewmodel.dart';
@@ -91,7 +91,7 @@ class _LessonViewPageState extends State<LessonViewPage> {
                   //课程
                   Container(
                     margin: const EdgeInsets.only(left: 24),
-                    child: ClassListFuture(
+                    child: ClassList(
                       pageUtil: pageUtil,
                       viewModel: classListViewModel,
                       searchString: classListSearchString,
@@ -101,12 +101,12 @@ class _LessonViewPageState extends State<LessonViewPage> {
                   //课时
                   Container(
                     margin: const EdgeInsets.only(left: 24),
-                    child: LessonListFuture(
+                    child: LessonList(
                       pageUtil: pageUtil,
-                      lessonPage: lessonListPage,
                       lessonId: lessonListLessonId,
-                      searchString: lessonListSearchString,
-                      viewModel: lessonListViewModel,
+                      searchInitString: lessonListSearchString,
+                      lessonListViewModel: lessonListViewModel,
+                      classId: classListClassId,
                     )
                   ),
                 ]),

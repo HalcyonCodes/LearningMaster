@@ -1,33 +1,39 @@
 import 'package:flutter/material.dart';
-import '../../pageUtil/page_util.dart';
-import '../../model/view_model/class_list_viewmodel.dart';
-import './class_list.dart';
+import './list_card_class_list.dart';
+import '../../../model/view_model/class_list_viewmodel.dart';
+import 'package:double_bladed_axe/double_bladed_axe.dart';
+import '../../../pageUtil/page_util.dart';
 
-class ClassListFuture extends StatefulWidget {
+class ClassCardListFuture extends StatefulWidget {
   final String? classId;
-  final String? searchString;
+  final ListUtil listUtil;
   final LessonViewPageUtil pageUtil;
   final ClassListViewModel viewModel;
-  const ClassListFuture(
-      {super.key,
-      this.searchString,
-      this.classId,
-      required this.pageUtil,
-      required this.viewModel});
+  final String? searchString;
+
+  const ClassCardListFuture({
+    super.key,
+    this.classId,
+    this.searchString,
+    required this.listUtil,
+    required this.pageUtil,
+    required this.viewModel,
+  });
+
   @override
-  State<ClassListFuture> createState() => _ClassListFutureState();
+  State<ClassCardListFuture> createState() => _ClassCardListFutureState();
 }
 
-class _ClassListFutureState extends State<ClassListFuture> {
+class _ClassCardListFutureState extends State<ClassCardListFuture> {
   late String? searchString;
   late String? classId;
 
   @override
   void initState() {
     super.initState();
+
     searchString = widget.searchString;
     classId = widget.classId;
-
   }
 
   @override
@@ -52,13 +58,15 @@ class _ClassListFutureState extends State<ClassListFuture> {
               return const Text('error');
             } else {
               print('qqq');
-              return ClassList(
-                  initString: searchString,
-                  initPage: widget.viewModel.initPage,
-                  maxPage: widget.viewModel.maxPage,
-                  pageMaxContainerCount: widget.viewModel.maxPageContainerCount,
-                  pageUtil: widget.pageUtil,
-                  viewModel: widget.viewModel);
+              return ClassCardList(
+                listUtil: widget.listUtil,
+                pageUtil: widget.pageUtil,
+                viewModel: widget.viewModel,
+                initPage: widget.viewModel.initPage,
+                maxPage: widget.viewModel.maxPage,
+                pageMaxContainCount: widget.viewModel.maxPageContainerCount,
+                searchString: searchString,
+              );
             }
         }
       }),

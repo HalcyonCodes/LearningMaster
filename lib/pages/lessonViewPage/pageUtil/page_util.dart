@@ -21,4 +21,11 @@ class LessonViewPageUtil {
   void setFuncSetClassId(void Function(String) func) {
     _setClassId = func;
   }
+
+  //page_point中初始化页码
+  void Function()? _initPagePoint;
+  void Function()? get initPagePoint => _initPagePoint;
+  void setFuncInitPagePoint(void Function()? func){
+    
+  }
 }

@@ -1,27 +1,31 @@
 import 'package:flutter/material.dart';
+import 'package:learning_master/pages/lessonViewPage/components/lesson_list/user_list_lesson_list.dart/user_list_lesson_list';
 import './search_lesson_list/search_lesson_list.dart';
-import './page_point_lesson_list/page_point.dart';
-import './user_list_lesson_list.dart/user_list_lesson_list.dart';
+import 'user_list_lesson_list.dart/page_point.dart';
+import './user_list_lesson_list.dart/future_user_list_lesson_list.dart';
 //--
 import 'package:double_bladed_axe/double_bladed_axe.dart';
 //--
 import '../../model/view_model/lesson_list_viewmodel.dart';
+//
+import '../../pageUtil/page_util.dart';
+
 //课时列表组件
 class LessonList extends StatefulWidget {
   final String? searchInitString;
-  final String initPage;
-  final String maxPage;
-  final String maxPageContainCount;
+  final String? classId;
+  final String? lessonId;
   final LessonListViewModel lessonListViewModel;
+  final LessonViewPageUtil pageUtil;
 
-  const LessonList(
-      {super.key,
-      this.searchInitString,
-      required this.initPage,
-      required this.maxPage,
-      required this.maxPageContainCount,
-      required this.lessonListViewModel
-      });
+  const LessonList({
+    super.key,
+    this.searchInitString,
+    this.classId,
+    this.lessonId,
+    required this.lessonListViewModel,
+    required this.pageUtil,
+  });
 
   @override
   State<LessonList> createState() => _LessonListState();
@@ -29,63 +33,70 @@ class LessonList extends StatefulWidget {
 
 class _LessonListState extends State<LessonList> {
   late String? searchInitString;
-  late String currentPage;
-  late String maxPage;
-  late String maxPageContainCount;
-  late ScrollController scrollController;
+  late String? classId;
+  late String? lessonId;
+
   late ListUtil listUtil;
 
-  
+  //ui控制
+  bool isDisplay = true;
+
   @override
   void initState() {
     super.initState();
-    searchInitString = widget.searchInitString;
-    currentPage = widget.initPage;
-    maxPage = widget.maxPage;
-    maxPageContainCount = widget.maxPageContainCount;
-    scrollController = ScrollController();
     listUtil = ListUtil();
+    searchInitString = widget.searchInitString;
+    classId = widget.classId;
+    lessonId = widget.lessonId;
+
+    //注册
+    widget.pageUtil.setFuncRefreshUiInFutureLessonList(refreshUi);
+    widget.pageUtil.setFuncSetIsDisplayInFutureLessonList(setIsDisplay);
   }
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: MediaQuery.of(context).size.height - 24 * 2,
-      width: MediaQuery.of(context).size.width >= 1920
-          ? ((MediaQuery.of(context).size.width - 24) / 24) * 5 - 24
-          : (1920 - 24) / 24 * 5 - 24,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          LessonSearch(
-            initSearchString: widget.searchInitString,
-          ),
-          const SizedBox(
-            height: 12,
-          ),
-          PagePoint(
-            currentPage: currentPage,
-            maxPage: maxPage,
-            lessonListUtil: listUtil,
-          ),
-          const SizedBox(
-            height: 12,
-          ),
-          SizedBox(
-            height:
-                MediaQuery.of(context).size.height - 24 * 2 - 12 * 2 - 17 - 46,
-            child: UserList(
-              listUtil: listUtil,
-              height: MediaQuery.of(context).size.height - 24 * 2 - 12 * 2 - 17 - 46,
-              initPage: currentPage,
-              pageMaxContainCount: maxPageContainCount,
-              maxPage: maxPage,
-              viewModel: widget.lessonListViewModel,
-            ),
+    return !isDisplay
+        ? Container(
+            width: MediaQuery.of(context).size.width >= 1920
+                ? ((MediaQuery.of(context).size.width - 24) / 24) * 5 - 24
+                : (1920 - 24) / 24 * 5 - 24,
           )
-        ],
-      ),
-    );
+        : SizedBox(
+            height: MediaQuery.of(context).size.height - 24 * 2,
+            width: MediaQuery.of(context).size.width >= 1920
+                ? ((MediaQuery.of(context).size.width - 24) / 24) * 5 - 24
+                : (1920 - 24) / 24 * 5 - 24,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                LessonSearch(
+                  initSearchString: widget.searchInitString,
+                ),
+                const SizedBox(
+                  height: 12,
+                ),
+                UserListFuture(
+                    pageUtil: widget.pageUtil,
+                    viewModel: widget.lessonListViewModel,
+                    listUtil: listUtil,
+                    classId: classId,
+                    lessonId: lessonId,
+                    searchString: searchInitString,
+                  )
+                  
+                
+              ],
+            ),
+          );
+  }
+
+  void setIsDisplay(bool b) {
+    isDisplay = b;
+  }
+
+  void refreshUi() {
+    setState(() {});
   }
 }

@@ -7,7 +7,7 @@ import '../../../model/view_model/class_conbination_viewmodel.dart';
 import '../../../util_class_conbination_page/page_util.dart';
 
 //课程组合卡片容器,将viewmodel的数据包装成cards
-class ClasssConbinationCardList extends StatefulWidget {
+class ClassConbinationCardList extends StatefulWidget {
   final double height;
   final String initPage;
   final String maxPage;
@@ -16,7 +16,7 @@ class ClasssConbinationCardList extends StatefulWidget {
   final ClassConbinationPageUtil pageUtil;
   final ClassConbinationListViewModel viewModel;
 
-  const ClasssConbinationCardList({
+  const ClassConbinationCardList({
     super.key,
     required this.height,
     required this.initPage,
@@ -28,11 +28,11 @@ class ClasssConbinationCardList extends StatefulWidget {
   });
 
   @override
-  State<ClasssConbinationCardList> createState() =>
-      _ClasssConbinationCardListState();
+  State<ClassConbinationCardList> createState() =>
+      _ClassConbinationCardListState();
 }
 
-class _ClasssConbinationCardListState extends State<ClasssConbinationCardList> {
+class _ClassConbinationCardListState extends State<ClassConbinationCardList> {
   late double height;
   late String initPage;
   late String maxPage;
