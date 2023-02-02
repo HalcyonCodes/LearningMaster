@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../../util_class_conbination_page/page_util.dart';
 import '../../../model/view_model/class_conbination_viewmodel.dart';
-import './class_conbination_list.dart';
+import 'card_list_class_conbination_list.dart';
 import 'package:double_bladed_axe/double_bladed_axe.dart';
 
 class ClassConbinationCardListFuture extends StatefulWidget {

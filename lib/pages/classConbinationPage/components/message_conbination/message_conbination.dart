@@ -2,9 +2,17 @@ import 'package:flutter/material.dart';
 
 import 'conbination_profile_message_conbination/proflile_conbination_message_conbination.dart';
 import './card_list_message_conbination/card_list_message_conbination.dart';
+import '../../model/view_model/message_conbination_viewmodel.dart';
+import '../../util_class_conbination_page/page_util.dart';
 
 class ConbinationMessage extends StatelessWidget {
-  const ConbinationMessage({super.key});
+  final ConbinationMessageViewModel viewModel;
+  final ClassConbinationPageUtil pageUtil;
+  const ConbinationMessage({
+    super.key,
+    required this.viewModel,
+    required this.pageUtil,  
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -19,12 +27,15 @@ class ConbinationMessage extends StatelessWidget {
         mainAxisSize: MainAxisSize.max,
         children: [
           ConbinationProfile(
-              profile:
-                  '想开发一个app?却无从下手?试试这个app前端开发课程!这个课程组合将学习使用flutter技术构建app前端应用。flutter是一个移动UI框架。使用flutter可以构建app界面。而且flutter是跨平台的, 一套代码可以在windows,macOs,linux。web所有平台呈现设计稿里的内容。'),
-          SizedBox(
+            profile: viewModel.conbinationMessageModel!.data.conbinationProfile,
+          ),
+          const SizedBox(
             height: 24,
           ),
-          CardList(),
+          ConbinationMessageClassList(
+            pageUtil: pageUtil,
+            viewModel: viewModel,
+          ),
         ],
       ),
     );

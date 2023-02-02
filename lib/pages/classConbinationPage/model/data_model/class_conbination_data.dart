@@ -1,3 +1,5 @@
+//ClassConbinationList的模型
+
 var data = {
   'code': '0',
   'message': '0',
@@ -7,7 +9,7 @@ var data = {
     'maxPageContainCount': '11',
     'conbinationCards': [
       {
-        'conbinationId': '123',
+        'conbinationId': '1',
         'classCount': '10',
         'conbinationTitle': '全栈工程师',
         'difficultyLevel': '8.0',
@@ -15,7 +17,7 @@ var data = {
         'usabilityLevel': '9.5',
       },
       {
-        'conbinationId': '123',
+        'conbinationId': '2',
         'classCount': '10',
         'conbinationTitle': '全栈工程师',
         'difficultyLevel': '8.0',
@@ -23,7 +25,7 @@ var data = {
         'usabilityLevel': '9.5',
       },
       {
-        'conbinationId': '123',
+        'conbinationId': '3',
         'classCount': '10',
         'conbinationTitle': '全栈工程师',
         'difficultyLevel': '8.0',

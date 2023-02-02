@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:double_bladed_axe/double_bladed_axe.dart';
 import '../../status_card/user_loadmore_widget.dart';
 import '../../status_card/user_loadpre_widget.dart';
-import '../card_class_conbination_list/card_class_conbination_list.dart';
+import 'card_class_conbination_list.dart';
 import '../../../model/view_model/class_conbination_viewmodel.dart';
 import '../../../util_class_conbination_page/page_util.dart';
 
@@ -92,7 +92,17 @@ class _ClassConbinationCardListState extends State<ClassConbinationCardList> {
             .conbinationCards[index].lengthLevel!,
         usabilityLevel: widget.viewModel.classConbinationModel!.data
             .conbinationCards[index].usabilityLevel!,
-        onClick: () {},
+        onClick: () {
+          widget.pageUtil.setDisplayInConbinationMessageFuture!(true);
+          widget.pageUtil.setConbinationId!(widget
+              .viewModel
+              .classConbinationModel!
+              .data
+              .conbinationCards[index]
+              .conbinationId!);
+          widget.pageUtil.setConbinationIdNullInConbinationMessageFuture!();
+          widget.pageUtil.refreshConbinationMessageFuture!();
+        },
       );
     });
   }
@@ -102,7 +112,8 @@ class _ClassConbinationCardListState extends State<ClassConbinationCardList> {
     int pageEndIndex = widget.listUtil.getPageEndIndex!();
     //请求
     widget.viewModel.loadMore(
-      pageEndIndex, widget.viewModel.searchString,
+      pageEndIndex,
+      widget.viewModel.searchString,
     );
 
     widgetsTemp = List.generate(
@@ -121,7 +132,17 @@ class _ClassConbinationCardListState extends State<ClassConbinationCardList> {
             .conbinationCards[index].lengthLevel!,
         usabilityLevel: widget.viewModel.classConbinationModel!.data
             .conbinationCards[index].usabilityLevel!,
-        onClick: () {},
+        onClick: () {
+          widget.pageUtil.setDisplayInConbinationMessageFuture!(true);
+          widget.pageUtil.setConbinationId!(widget
+              .viewModel
+              .classConbinationModel!
+              .data
+              .conbinationCards[index]
+              .conbinationId!);
+          widget.pageUtil.setConbinationIdNullInConbinationMessageFuture!();
+          widget.pageUtil.refreshConbinationMessageFuture!();
+        },
       );
     });
     return widgetsTemp;
@@ -132,7 +153,8 @@ class _ClassConbinationCardListState extends State<ClassConbinationCardList> {
     int pageStartIndex = widget.listUtil.getPageStartIndex!();
     //请求
     widget.viewModel.loadPre(
-      pageStartIndex, widget.viewModel.searchString,
+      pageStartIndex,
+      widget.viewModel.searchString,
     );
 
     widgetsTemp = List.generate(
@@ -151,13 +173,21 @@ class _ClassConbinationCardListState extends State<ClassConbinationCardList> {
             .conbinationCards[index].lengthLevel!,
         usabilityLevel: widget.viewModel.classConbinationModel!.data
             .conbinationCards[index].usabilityLevel!,
-        onClick: () {},
+        onClick: () {
+          widget.pageUtil.setDisplayInConbinationMessageFuture!(true);
+          widget.pageUtil.setConbinationId!(widget
+              .viewModel
+              .classConbinationModel!
+              .data
+              .conbinationCards[index]
+              .conbinationId!);
+          widget.pageUtil.setConbinationIdNullInConbinationMessageFuture!();
+          widget.pageUtil.refreshConbinationMessageFuture!();
+        },
       );
     });
     return widgetsTemp;
   }
 
-
   //刷新
-
 }
