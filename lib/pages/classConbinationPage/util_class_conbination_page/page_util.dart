@@ -29,4 +29,6 @@ class ClassConbinationPageUtil {
   void setFuncSetConbinationIdNullInConbinationMessageFuture(void Function()? func) {
     _setConbinationIdNullInConbinationMessageFuture = func;
   }
+
+  //
 }

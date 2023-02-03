@@ -3,7 +3,8 @@ import './card_class_profile_conbination/card_class_profile_conbination.dart';
 
 class ClassProfile extends StatelessWidget {
   final String classProfile;
-  const ClassProfile({super.key, required this.classProfile});
+  final Function()? onClick;
+  const ClassProfile({super.key, required this.classProfile, required this.onClick});
 
   @override
   Widget build(BuildContext context) {
@@ -13,9 +14,7 @@ class ClassProfile extends StatelessWidget {
           : (1920 - 24) / 24 * 5 - 24,
       child: ClassProfileCard(
         profile: classProfile,
-        onCardClick: (){
-          print('123');
-        },
+        onCardClick: onClick!,
       ),
     );
   }
