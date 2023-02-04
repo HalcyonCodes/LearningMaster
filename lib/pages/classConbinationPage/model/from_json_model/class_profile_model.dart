@@ -25,6 +25,6 @@ class ClassProfileModelData {
   ClassProfileModelData.fromJson(Map<String, dynamic> json) {
     conbinationId = json['conbinationId'];
     classId = json['classId'];
-    profile = json['proflie'];
+    profile = json['profile'];
   }
 }

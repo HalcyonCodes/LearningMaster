@@ -28,10 +28,10 @@ class UserList extends StatefulWidget {
 }
 
 class _UserListState extends State<UserList> {
-  late int initPage;
-  late int pageMaxContainCount;
-  late int maxPage;
-
+  late String? initPage;
+  late String? pageMaxContainCount;
+  late String? maxPage;
+  
   List<Widget> initWidgets = [];
 
   @override
@@ -40,11 +40,10 @@ class _UserListState extends State<UserList> {
     //注册方法
     widget.listUtil.setFuncGetLoadMoreWidgets(loadMore);
     widget.listUtil.setFuncGetLoadPreWidgets(loadPre);
-    //widget.listUtil.setScreenHeight(widget.height);
     //初始化
-    initPage = int.tryParse(widget.initPage)!;
-    pageMaxContainCount = int.tryParse(widget.pageMaxContainCount)!;
-    maxPage = int.tryParse(widget.maxPage)!;
+    initPage = widget.initPage;
+    pageMaxContainCount = widget.pageMaxContainCount;
+    maxPage = widget.maxPage;
 
     initItem();
   }
@@ -53,10 +52,10 @@ class _UserListState extends State<UserList> {
   Widget build(BuildContext context) {
     //widget.listUtil.setScreenHeight(widget.height);
     return DoubleBladedAxe(
-      initWidgets: initWidgets,
-      initPage: widget.initPage,
-      maxPage: widget.maxPage,
-      pageMaxContainCount: widget.pageMaxContainCount,
+      initWidgets: initWidgets!,
+      initPage: initPage!,
+      maxPage: maxPage!,
+      pageMaxContainCount: pageMaxContainCount!,
       listUtil: widget.listUtil,
       loadMoreStatusWidget: UserLoadMoreWidget(listUtil: widget.listUtil),
       loadPreStatusWidget: UserLoadPreWidget(listUtil: widget.listUtil),

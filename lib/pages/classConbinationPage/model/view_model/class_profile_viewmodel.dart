@@ -11,7 +11,9 @@ class ClassProfileViewModel {
   String? classId;
   Response? response;
 
-  ClassProfileViewModel({required this.pageUtil});
+  ClassProfileViewModel({required this.pageUtil}) {
+    pageUtil.setFuncSetRefreshPara(setRefreshPara);
+  }
 
   Future<int> refresh(String? tConbinationId, String? tClassId) async {
     conbinationId = null;
@@ -40,7 +42,7 @@ class ClassProfileViewModel {
     }
   }
 
-  void setClasMessage(String tConbinationId, String tClassId) {
+  void setRefreshPara(String tConbinationId, String tClassId) {
     conbinationId = tConbinationId;
     classId = tClassId;
   }

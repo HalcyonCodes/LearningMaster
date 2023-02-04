@@ -36,7 +36,7 @@ class _LessonListState extends State<LessonList> {
   late String? classId;
   late String? lessonId;
 
-  late ListUtil listUtil;
+  //late ListUtil listUtil;
 
   //ui控制
   bool isDisplay = true;
@@ -44,7 +44,7 @@ class _LessonListState extends State<LessonList> {
   @override
   void initState() {
     super.initState();
-    listUtil = ListUtil();
+    //listUtil = ListUtil();
     searchInitString = widget.searchInitString;
     classId = widget.classId;
     lessonId = widget.lessonId;
@@ -80,7 +80,7 @@ class _LessonListState extends State<LessonList> {
                 UserListFuture(
                     pageUtil: widget.pageUtil,
                     viewModel: widget.lessonListViewModel,
-                    listUtil: listUtil,
+                    //listUtil: listUtil,
                     classId: classId,
                     lessonId: lessonId,
                     searchString: searchInitString,

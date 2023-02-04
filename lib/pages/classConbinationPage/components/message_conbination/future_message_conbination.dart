@@ -28,7 +28,7 @@ class _ConbinationMessageFutureState extends State<ConbinationMessageFuture> {
     isDisplay = true;
     //注册
     widget.pageUtil.setFuncSetDisplayInConbinationMessageFuture(setIsDiplay);
-    widget.pageUtil.setFuncRefreshConbinationMessageFuture(refreshUi);
+    widget.pageUtil.setFuncRefreshUiInConbinationMessageFuture(refreshUi);
     widget.pageUtil.setFuncSetConbinationIdNullInConbinationMessageFuture(initConbinationId);
   }
 

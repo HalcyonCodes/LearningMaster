@@ -2,16 +2,24 @@ import "package:flutter/material.dart";
 import '../../config/index.dart';
 import './components/nav/nav.dart';
 import './components/class_conbination_list/class_conbination_list.dart';
-import './components/class_profile_conbination/class_profile_conbination.dart';
+import './components/class_profile_conbination/future_class_profile_conbination.dart';
 import './util_class_conbination_page/page_util.dart';
 import './model/view_model/class_conbination_viewmodel.dart';
 import './model/view_model/message_conbination_viewmodel.dart';
 import './components/message_conbination/future_message_conbination.dart';
+import './model/view_model/class_profile_viewmodel.dart';
 
 class ClassConbinationPage extends StatefulWidget {
   final String? conbinationId;
+  final String? classId;
+  final String? conbinationSearchString;
 
-  const ClassConbinationPage({super.key, this.conbinationId});
+  const ClassConbinationPage({
+    super.key,
+    this.conbinationId,
+    this.classId,
+    this.conbinationSearchString,
+  });
 
   @override
   State<ClassConbinationPage> createState() => _ClassConbinationPageState();
@@ -21,18 +29,24 @@ class _ClassConbinationPageState extends State<ClassConbinationPage> {
   ClassConbinationPageUtil pageUtil = ClassConbinationPageUtil();
   late ClassConbinationListViewModel classConbinationListViewModel;
   late ConbinationMessageViewModel conbinationMessageViewModel;
+  late ClassProfileViewModel classProfileViewModel;
   //--
   late String? conbinationId;
-
+  late String? classId;
+  late String? conbinationSearchString;
+  //--
   @override
   void initState() {
     super.initState();
     conbinationId = widget.conbinationId;
-
+    classId = widget.classId;
+    conbinationSearchString = widget.conbinationSearchString;
+    //--
     classConbinationListViewModel =
         ClassConbinationListViewModel(pageUtil: pageUtil);
     conbinationMessageViewModel =
         ConbinationMessageViewModel(pageUtil: pageUtil);
+    classProfileViewModel = ClassProfileViewModel(pageUtil: pageUtil);
   }
 
   @override
@@ -71,11 +85,11 @@ class _ClassConbinationPageState extends State<ClassConbinationPage> {
                       child: ClassConbinationList(
                         viewModel: classConbinationListViewModel,
                         pageUtil: pageUtil,
-                        initSearchString: null,
-                        conbinationId: null,
+                        initSearchString: conbinationSearchString,
+                        conbinationId: conbinationId,
                       )),
                   Container(
-                       height: MediaQuery.of(context).size.height - 24 * 2,
+                      height: MediaQuery.of(context).size.height - 24 * 2,
                       width: MediaQuery.of(context).size.width >= 1920
                           ? ((MediaQuery.of(context).size.width - 24) / 24) *
                                   10 -
@@ -83,19 +97,23 @@ class _ClassConbinationPageState extends State<ClassConbinationPage> {
                           : (1920 - 24) / 24 * 10 - 24,
                       margin: const EdgeInsets.only(left: 24),
                       child: ConbinationMessageFuture(
-                        conbinationId: '0',
+                        conbinationId: conbinationId,
                         viewModel: conbinationMessageViewModel,
                         pageUtil: pageUtil,
                       )),
                   Container(
-
-                    width: MediaQuery.of(context).size.width >= 1920
-                        ? ((MediaQuery.of(context).size.width - 24) / 24) * 5 -
-                            24
-                        : (1920 - 24) / 24 * 5 - 24,
-                    margin: const EdgeInsets.only(left: 24),
-                    child: ClassProfile(classProfile: 'C++作为一门基础语言必须掌握'),
-                  )
+                      width: MediaQuery.of(context).size.width >= 1920
+                          ? ((MediaQuery.of(context).size.width - 24) / 24) *
+                                  5 -
+                              24
+                          : (1920 - 24) / 24 * 5 - 24,
+                      margin: const EdgeInsets.only(left: 24),
+                      child: ClassProfileFuture(
+                        pageUtil: pageUtil,
+                        viewModel: classProfileViewModel,
+                        classId: classId,
+                        conbinationId: conbinationId,
+                      ))
 
                   //课时
                 ]),

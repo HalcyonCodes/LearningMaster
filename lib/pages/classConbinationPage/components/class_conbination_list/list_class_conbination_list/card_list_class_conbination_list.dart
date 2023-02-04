@@ -101,7 +101,9 @@ class _ClassConbinationCardListState extends State<ClassConbinationCardList> {
               .conbinationCards[index]
               .conbinationId!);
           widget.pageUtil.setConbinationIdNullInConbinationMessageFuture!();
-          widget.pageUtil.refreshConbinationMessageFuture!();
+          widget.pageUtil.setIsDisplayInClassProfileFuture!(false);
+          widget.pageUtil.refreshUiInClassProfileFuture!();
+          widget.pageUtil.refreshUiInConbinationMessageFuture!();
         },
       );
     });
@@ -141,7 +143,9 @@ class _ClassConbinationCardListState extends State<ClassConbinationCardList> {
               .conbinationCards[index]
               .conbinationId!);
           widget.pageUtil.setConbinationIdNullInConbinationMessageFuture!();
-          widget.pageUtil.refreshConbinationMessageFuture!();
+          widget.pageUtil.setIsDisplayInClassProfileFuture!(false);
+          widget.pageUtil.refreshUiInClassProfileFuture!();
+          widget.pageUtil.refreshUiInConbinationMessageFuture!();
         },
       );
     });
@@ -182,7 +186,9 @@ class _ClassConbinationCardListState extends State<ClassConbinationCardList> {
               .conbinationCards[index]
               .conbinationId!);
           widget.pageUtil.setConbinationIdNullInConbinationMessageFuture!();
-          widget.pageUtil.refreshConbinationMessageFuture!();
+          widget.pageUtil.setIsDisplayInClassProfileFuture!(false);
+          widget.pageUtil.refreshUiInClassProfileFuture!();
+          widget.pageUtil.refreshUiInConbinationMessageFuture!();
         },
       );
     });

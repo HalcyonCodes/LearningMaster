@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:learning_master/pages/classConbinationPage/components/message_conbination/message_conbination.dart';
-import './class_card_message_conbination.dart';
+import 'card_message_conbination.dart';
 import '../../../model/view_model/message_conbination_viewmodel.dart';
 import '../../../util_class_conbination_page/page_util.dart';
 
@@ -54,7 +53,14 @@ class _ConbinationMessageClassListState
           classStatus: widget.viewModel.conbinationMessageModel!.data
               .classCards[index].classStatus,
           onClick: () {
-            
+            widget.pageUtil.setIsDisplayInClassProfileFuture!(true);
+            widget.pageUtil.setRefreshParaNullInClassProfileFuture!();
+            widget.pageUtil.setRefreshParaInClassProfileViewModel!(
+                widget.viewModel.conbinationMessageModel!.data.conbinationId,
+                widget.viewModel.conbinationMessageModel!.data.classCards[index]
+                    .classId);
+
+            widget.pageUtil.refreshUiInClassProfileFuture!();
           });
     });
   }

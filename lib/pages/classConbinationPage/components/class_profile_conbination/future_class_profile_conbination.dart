@@ -9,9 +9,11 @@ class ClassProfileFuture extends StatefulWidget {
   final ClassProfileViewModel viewModel;
   final ClassConbinationPageUtil pageUtil;
   const ClassProfileFuture(
-      {super.key, required this.viewModel,
-       required this.pageUtil,
-       this.classId, this.conbinationId});
+      {super.key,
+      required this.viewModel,
+      required this.pageUtil,
+      this.classId,
+      this.conbinationId});
 
   @override
   State<ClassProfileFuture> createState() => _ClassProfileFutureState();
@@ -20,42 +22,51 @@ class ClassProfileFuture extends StatefulWidget {
 class _ClassProfileFutureState extends State<ClassProfileFuture> {
   late String? conbinationId;
   late String? classId;
+  late bool isDisplay;
 
   @override
   void initState() {
     super.initState();
     classId = widget.conbinationId;
     conbinationId = widget.conbinationId;
+    isDisplay = false;
+    //注册
+    widget.pageUtil.setFuncRefreshUiInClassProfileFuture(refreshUi);
+    widget.pageUtil
+        .setFuncSetRefreshParaNullInClassProfileFuture(setRefreshParaNull);
+    widget.pageUtil.setFuncSetIsDisplayInClassProfileFuture(setIsDisplay);
   }
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-        future: widget.viewModel.refresh(conbinationId, classId),
-        builder: ((context, snapshot) {
-          switch (snapshot.connectionState) {
-            case ConnectionState.none:
-              return const Text('none');
+    return !isDisplay
+        ? Container()
+        : FutureBuilder(
+            future: widget.viewModel.refresh(conbinationId, classId),
+            builder: ((context, snapshot) {
+              switch (snapshot.connectionState) {
+                case ConnectionState.none:
+                  return const Text('none');
 
-            case ConnectionState.waiting:
-              return const Text('waiting');
+                case ConnectionState.waiting:
+                  return const Text('waiting');
 
-            case ConnectionState.active:
-              return const Text('active');
+                case ConnectionState.active:
+                  return const Text('active');
 
-            case ConnectionState.done:
-              if (snapshot.hasError) {
-                return const Text('error');
-              } else {
-                //通过classId和conbinationId构造路由，
-                return ClassProfile(
-                  classProfile:
-                      widget.viewModel.classProfileModel!.data.profile,
-                  onClick: () {},
-                );
+                case ConnectionState.done:
+                  if (snapshot.hasError) {
+                    return const Text('error');
+                  } else {
+                    //通过classId和conbinationId构造路由，
+                    return ClassProfile(
+                      classProfile:
+                          widget.viewModel.classProfileModel!.data.profile,
+                      onClick: () {},
+                    );
+                  }
               }
-          }
-        }));
+            }));
   }
 
   void setRefreshParaNull() {
@@ -63,11 +74,11 @@ class _ClassProfileFutureState extends State<ClassProfileFuture> {
     classId = null;
   }
 
-
-  void refreshUi(){
-    setState(() {
-      
-    });
+  void refreshUi() {
+    setState(() {});
   }
 
+  void setIsDisplay(bool b) {
+    isDisplay = b;
+  }
 }
